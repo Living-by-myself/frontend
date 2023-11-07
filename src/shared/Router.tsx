@@ -1,15 +1,15 @@
 import { Routes, Route } from "react-router-dom";
-import PrivateRoute from "src/shared/PrivateRoute";
-import HomePage from "src/pages/home";
-import LoginPage from "src/pages/login";
-import RegisterPage from "src/pages/Register";
-import PasswordFindPage from "src/pages/password/find";
-import PasswordResetPage from "src/pages/password/reset";
-import UserProfileEditPage from "src/pages/userEdit";
+import PrivateRoute from "../shared/PrivateRoute";
+import HomePage from "../pages/home/index";
+import LoginPage from "../pages/login/index";
+import RegisterPage from "../pages/Register/index";
+import PasswordFindPage from "../pages/password/find/index";
+import PasswordResetPage from "../pages/password/reset/index";
+import UserProfileEditPage from "../pages/userEdit/index";
 
-import PurchasePage from "src/pages/purchase";
-import PurchaseDetailPage from "src/pages/purchaseDetail";
-import { RootLayout } from "src/components/ui/rootLayout";
+import PurchasePage from "../pages/purchase/index";
+import PurchaseDetailPage from "../pages/purchaseDetail/index";
+import { RootLayout } from "../components/ui/rootLayout";
 
 // const router = [
 //     {path: '/', element : <HomePage />},
