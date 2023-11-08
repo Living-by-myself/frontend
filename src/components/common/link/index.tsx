@@ -8,14 +8,16 @@ export const LINK_SIZE = {
 } as const;
 
 export type LinkSize = (typeof LINK_SIZE)[keyof typeof LINK_SIZE];
+export type LinkBold = boolean;
 
 interface LinkProp extends RLinkProps {
+  bold?: LinkBold;
   size?: LinkSize;
 }
 
-const Link = ({ size = "md", children, ...props }: LinkProp) => {
+const Link = ({ size = "md", children, bold = false, ...props }: LinkProp) => {
   return (
-    <S.Link size={size} {...props}>
+    <S.Link size={size} bold={bold} {...props}>
       {children}
     </S.Link>
   );

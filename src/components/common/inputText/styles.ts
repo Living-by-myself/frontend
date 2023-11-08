@@ -12,6 +12,15 @@ export const InputText = styled.input`
   font-size: ${({ theme }) => theme.fontSizes.base};
   color: ${({ theme }) => theme.colors.gray[800]};
 
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+
   &:focus-visible {
     outline: none;
     box-shadow: 0 0 0 1px ${({ theme }) => theme.colors.gray[400]};

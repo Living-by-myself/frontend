@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import { Link as RLink } from "react-router-dom";
-import { LINK_SIZE, LinkSize } from ".";
-export const Link = styled(RLink)<{ size: LinkSize }>`
+import { LINK_SIZE, LinkSize, LinkBold } from ".";
+
+export const Link = styled(RLink)<{ size: LinkSize; bold: LinkBold }>`
   color: ${({ theme }) => theme.colors.gray[800]};
-  text-decoration: none;
+  font-weight: ${({ theme, bold }) =>
+    bold ? theme.fontWeights.bold : theme.fontWeights.normal};
+  text-decoration: ${({ bold }) => (bold ? "underline" : "none")};
+
   &:hover,
   &:focus {
     text-decoration: underline;
