@@ -1,4 +1,6 @@
-const pxToRem = (px: number) => `${px / 16}rem`;
+import { DefaultTheme } from "styled-components";
+
+const pxToRem = (px: number) => `${px / 10}rem`;
 
 const fontSizes = {
   xxl: pxToRem(22), // h1
@@ -67,10 +69,21 @@ const breakPoints = {
   pc: 768, // mobile: 0 ~ 767, pc: 768 ~
 };
 
-const theme = {
+const fontWeights = {
+  normal: 400,
+  bold: 600,
+};
+
+export type FontSizesTypes = typeof fontSizes;
+export type ColorsTypes = typeof colors;
+export type BreakPointsTypes = typeof breakPoints;
+export type FontWeightsTypes = typeof fontWeights;
+
+const theme: DefaultTheme = {
   fontSizes,
   colors,
   breakPoints,
+  fontWeights,
 };
 
 export default theme;

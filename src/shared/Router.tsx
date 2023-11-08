@@ -9,7 +9,7 @@ import UserProfileEditPage from "../pages/userEdit/index";
 
 import PurchasePage from "../pages/purchase/index";
 import PurchaseDetailPage from "../pages/purchaseDetail/index";
-import { RootLayout } from "../components/ui/rootLayout";
+import RootLayout from "@/components/ui/rootLayout";
 
 // const router = [
 //     {path: '/', element : <HomePage />},
