@@ -11,24 +11,10 @@ import PurchasePage from "../pages/purchase/index";
 import PurchaseDetailPage from "../pages/purchaseDetail/index";
 import RootLayout from "@/components/ui/rootLayout";
 
-// const router = [
-//     {path: '/', element : <HomePage />},
-//     {path: 'Login', element : <HomePage />}
-// ]
-
-// [{path : '/'
-// element : <>},]
-
-// const router = [
-//     {
-//         path: '/',
-//         element: <RootLayout/>,
-//         children: [
-//             {index:true, element:<HomePage/>},
-//             {path: 'login', element: <LoginPage/>},
-//         ]
-//     }
-// ]
+import CommunityPage from "@/pages/community";
+import CommunityDetailPage from "@/pages/communityDetail";
+import CommunityWritePage from "@/pages/communityWrite";
+import MyPage from "@/pages/mypage";
 
 const Router = () => {
   return (
@@ -44,7 +30,12 @@ const Router = () => {
         <Route path="/purchase" element={<PurchasePage />} />
         <Route path="/purchase/:id" element={<PurchaseDetailPage />} />
 
+        <Route path="/community" element={<CommunityPage />} />
+        <Route path="/community/:id" element={<CommunityDetailPage />} />
+        <Route path="/community/write" element={<CommunityWritePage />} />
+
         <Route element={<PrivateRoute />}>
+          <Route path="/mypage" element={<MyPage />} />
           {/* 마이페이지 등... 로그인 후 사용 가능한 페이지들... */}
         </Route>
       </Route>
