@@ -9,7 +9,7 @@ const fontSizes = {
   base: pxToRem(16), // h4, body1
   sm: pxToRem(14), // body2
   xs: pxToRem(12), // body3, caption
-  xxs: pxToRem(9), // body4, caption2
+  xxs: pxToRem(10), // body4, caption2
 };
 
 const colors = {

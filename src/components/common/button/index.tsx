@@ -33,7 +33,8 @@ interface ButtonProps {
   size?: ButtonSizes;
   disabled?: boolean;
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }
 
 const Button = ({
@@ -43,6 +44,7 @@ const Button = ({
   disabled,
   children,
   onClick,
+  type = "submit",
 }: ButtonProps) => {
   return (
     <S.Button
@@ -51,6 +53,7 @@ const Button = ({
       size={size}
       disabled={disabled}
       onClick={onClick}
+      type={type}
     >
       {children}
     </S.Button>
