@@ -1,7 +1,8 @@
+import { MobileContainer } from "@/styles/commonStyles";
 import React from "react";
 
 const CommunityWritePage = () => {
-  return <div>CommunityWritePage</div>;
+  return <MobileContainer>CommunityWritePage</MobileContainer>;
 };
 
 export default CommunityWritePage;

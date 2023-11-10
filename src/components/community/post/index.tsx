@@ -1,30 +1,52 @@
 import Icon from "@/components/common/icon";
+import { Post } from "@/pages/community";
 // import { S } from "./styles";
+// import theme from "@/styles/theme";
 import styled from "styled-components";
 
-const CommunityPost = () => {
+const CommunityPost = (props: Post) => {
   return (
     <S.Container>
-      <S.CategoryContainer>카테고리 인기글</S.CategoryContainer>
-      <S.Title>글의 제목이 되는 부분입니다 14px Prete...</S.Title>
-      <S.Body>글의 제목이 되는 부분입니다 14px Pretendard medium black</S.Body>
+      <S.ContentsBox>
+        <S.TitleBodyBox $isImage={props.fileUrls !== null ? true : false}>
+          <S.CategoryContainer>{props.category} 인기글</S.CategoryContainer>
+
+          {/* 컨텐츠 박스의 크기가 조절 됨 */}
+          <S.Title>{props.title}</S.Title>
+          <S.Body>{props.description}</S.Body>
+        </S.TitleBodyBox>
+
+        {/* 이미지속성 있고 없고로 조건부 렌더링 */}
+        {props.fileUrls ? (
+          <S.ImageBox>
+            <S.Image alt="이미지명" src={props.fileUrls} />
+          </S.ImageBox>
+        ) : (
+          <></>
+        )}
+      </S.ContentsBox>
+
       <S.PostInfoContainer>
         <S.TimeViewBox>
-          <S.Time>5시간 전</S.Time>
-          <S.View> · 조회 100</S.View>
+          <S.Time>{props.getCreatedAtAsString}</S.Time>
+          <S.View> · {props.viewCnt}</S.View>
         </S.TimeViewBox>
         <S.CommentLikeBox>
           <Icon name="message-circle" size={"12"} />
-          <S.Comment>4</S.Comment>
+          <S.Comment>{props.commentCnt}</S.Comment>
         </S.CommentLikeBox>
         <Icon name="heart" size={"12"} />
-        <S.Like>4</S.Like>
+        <S.Like>{props.likeCnt}</S.Like>
       </S.PostInfoContainer>
     </S.Container>
   );
 };
 
 export default CommunityPost;
+
+interface imgProps {
+  $isImage: boolean;
+}
 
 const S = {
   Container: styled.div`
@@ -37,17 +59,35 @@ const S = {
     color: ${({ theme }) => theme.colors.gray[400]};
     margin-bottom: 7px;
   `,
+  ContentsBox: styled.div`
+    display: flex;
+    gap: 15px;
+  `,
+  TitleBodyBox: styled.div<imgProps>`
+    ${({ $isImage }) =>
+      $isImage ? "width: calc(100% - 65px)" : "width: 100%"};
+  `,
   Title: styled.h1`
     font-size: ${({ theme }) => theme.fontSizes.base};
     font-weight: ${({ theme }) => theme.fontWeights.bold};
     color: ${({ theme }) => theme.colors.gray[900]};
     margin-bottom: 5px;
+
+    /* background-color: royalblue; */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
   `,
   Body: styled.h3`
     font-size: ${({ theme }) => theme.fontSizes.xs};
     font-weight: ${({ theme }) => theme.fontWeights.normal};
     color: ${({ theme }) => theme.colors.gray[400]};
     margin-bottom: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
   `,
   PostInfoContainer: styled.div`
     display: flex;
@@ -74,6 +114,19 @@ const S = {
   Like: styled.p`
     margin: 1px 0 0 3px;
   `,
-  ImageBox: styled.div``,
-  Image: styled.img``,
+  ImageBox: styled.div`
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-left: auto;
+  `,
+  Image: styled.img`
+    width: 100%;
+    height: auto;
+    min-width: 50px;
+
+    border-radius: 5px;
+  `,
 };
