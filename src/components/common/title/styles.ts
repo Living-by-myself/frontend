@@ -1,7 +1,8 @@
+import { TITLE_LEVELS } from "@/constants/common.constants";
+import { TitleLevels } from "@/types/types";
 import styled from "styled-components";
-import { TITLE_LEVELS, TitleLevel } from ".";
 
-export const Title = styled.h1<{ level: TitleLevel }>`
+export const Title = styled.h1<{ level: TitleLevels }>`
   color: ${({ theme }) => theme.colors.gray[800]};
   margin: 0.5em 0;
   font-weight: ${({ theme }) => theme.fontWeights.bold};

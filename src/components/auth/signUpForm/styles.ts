@@ -22,6 +22,11 @@ export const FormRow = styled.div`
   gap: 1rem;
 `;
 
+export const FormColumn = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
 export const LinkContainer = styled.div`
   display: flex;
   gap: 1rem;

@@ -1,13 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import * as S from "./styles";
 import useClickOutside from "../../../hooks/useClickOutside";
-
-export type Side = "left" | "right" | "top" | "bottom" | "center";
+import { ModalSides } from "@/types/types";
+import {
+  ModalBGMotionVariants,
+  ModalWrapperMotionVariants,
+} from "@/styles/motion";
 
 interface ModalProps {
   children: React.ReactNode;
   onClose: () => void;
-  side?: Side;
+  side?: ModalSides;
 }
 
 const getFocusableElements = (target: Element) => {
@@ -78,8 +81,18 @@ const BaseModal: React.FC<ModalProps> = ({
 
   return (
     <div>
-      <S.ModalBackground />
+      <S.ModalBackground
+        initial="closed"
+        animate="open"
+        exit="closed"
+        variants={ModalBGMotionVariants}
+      />
       <S.ModalWrapper
+        custom={side}
+        initial="closed"
+        animate="open"
+        exit="closed"
+        variants={ModalWrapperMotionVariants}
         side={side}
         {...props}
         ref={modalRef}

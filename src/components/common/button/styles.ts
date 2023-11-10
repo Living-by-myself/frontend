@@ -1,13 +1,11 @@
 import styled, { css } from "styled-components";
+import theme from "@/styles/theme";
+import { ButtonColors, ButtonSizes, ButtonVariants } from "@/types/types";
 import {
   BUTTON_COLORS,
   BUTTON_SIZES,
   BUTTON_VARIANTS,
-  ButtonColors,
-  ButtonSizes,
-  ButtonVariants,
-} from ".";
-import theme from "@/styles/theme";
+} from "@/constants/common.constants";
 
 const getColor = (color: ButtonColors) => {
   switch (color) {
@@ -39,6 +37,7 @@ export const Button = styled.button<{
   variants: ButtonVariants;
   color: ButtonColors;
   size: ButtonSizes;
+  $full: boolean;
 }>`
   display: inline-flex;
   align-items: center;
@@ -47,6 +46,8 @@ export const Button = styled.button<{
   border-radius: 0.8rem;
   font-size: ${({ theme }) => theme.fontSizes.base};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+  width: ${({ $full }) => ($full ? "100%" : "auto")};
+
   &:hover {
     cursor: pointer;
   }

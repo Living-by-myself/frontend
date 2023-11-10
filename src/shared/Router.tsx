@@ -7,9 +7,11 @@ import PasswordFindPage from "../pages/password/find/index";
 import PasswordResetPage from "../pages/password/reset/index";
 import UserProfileEditPage from "../pages/userEdit/index";
 
-import PurchasePage from "../pages/purchase/index";
-import PurchaseDetailPage from "../pages/purchaseDetail/index";
 import RootLayout from "@/components/ui/rootLayout";
+import GroupBuyPage from "../pages/groupBuy/index";
+import GroupBuyDetailPage from "../pages/groupBuyDetail/index";
+import GroupBuyWritePage from "@/pages/groupBuyWrite";
+import GroupBuyEditPage from "@/pages/groupBuyEdit";
 
 // const router = [
 //     {path: '/', element : <HomePage />},
@@ -41,8 +43,11 @@ const Router = () => {
         <Route path="/password-reset" element={<PasswordResetPage />} />
         <Route path="/user-edit" element={<UserProfileEditPage />} />
 
-        <Route path="/purchase" element={<PurchasePage />} />
-        <Route path="/purchase/:id" element={<PurchaseDetailPage />} />
+        <Route path="/group-buy" element={<GroupBuyPage />} />
+        <Route path="/group-buy/:id" element={<GroupBuyDetailPage />} />
+        <Route path="/group-buy/:id/edit" element={<GroupBuyEditPage />} />
+
+        <Route path="/group-buy/write" element={<GroupBuyWritePage />} />
 
         <Route element={<PrivateRoute />}>
           {/* 마이페이지 등... 로그인 후 사용 가능한 페이지들... */}
