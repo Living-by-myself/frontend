@@ -1,9 +1,15 @@
 import * as S from "./styles";
 
-interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {}
+interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
+  bold?: boolean;
+}
 
-const Label = ({ children, ...props }: LabelProps) => {
-  return <S.Label {...props}>{children}</S.Label>;
+const Label = ({ bold = false, children, ...props }: LabelProps) => {
+  return (
+    <S.Label $bold={bold} {...props}>
+      {children}
+    </S.Label>
+  );
 };
 
 export default Label;

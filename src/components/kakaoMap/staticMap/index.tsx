@@ -12,7 +12,6 @@ const SMap = ({ lat, lng }: StaticMapProps) => {
   const staticMapRef = useRef(null);
   useEffect(() => {
     window.kakao.maps.load(function () {
-      console.log(window.kakao);
       const centerPosition = new window.kakao.maps.LatLng(lat, lng);
       const option = {
         center: centerPosition,

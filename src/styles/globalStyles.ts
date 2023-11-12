@@ -9,6 +9,13 @@ const GlobalStyles = createGlobalStyle`
         margin: 0;
         padding: 0;
         line-height: 1.5;
+        
+        &:focus-visible {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            box-shadow: ${({ theme }) =>
+              `0 0 0 2px #fff, 0 0 0 calc(2px + 2px ) ${theme.colors.green[300]}`}!important;
+        }
     }
 
     html {

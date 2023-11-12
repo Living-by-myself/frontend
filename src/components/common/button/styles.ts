@@ -92,22 +92,29 @@ export const Button = styled.button<{
           color: ${theme.colors.gray[900]};
           border: none;
           font-weight: ${theme.fontWeights.normal};
-          &:hover {
-            text-decoration: underline;
-          }
+          text-decoration: underline;
         `;
       case BUTTON_VARIANTS.ICON:
         return css`
           background-color: transparent;
           color: #000;
-          border: none;
+          border: 1px solid transparent;
+          font-weight: ${theme.fontWeights.normal};
+          &:hover {
+            border: 1px solid ${theme.colors.gray[300]};
+          }
         `;
       default:
         return "";
     }
   }}
 
-  ${({ size, theme }) => {
+  ${({ size, theme, variants }) => {
+    if (variants === BUTTON_VARIANTS.ICON) {
+      return css`
+        padding: 0.4rem;
+      `;
+    }
     switch (size) {
       case BUTTON_SIZES.SM:
         return css`
