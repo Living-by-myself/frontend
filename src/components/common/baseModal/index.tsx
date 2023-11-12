@@ -68,7 +68,7 @@ const BaseModal: React.FC<ModalProps> = ({
     if (modalRef.current) {
       const focusableModalElements = getFocusableElements(modalRef.current);
       const firstElement = focusableModalElements[0] as HTMLElement;
-      firstElement.focus();
+      if (firstElement) firstElement.focus();
     }
     previousFocusRef.current = focusedElementBeforeModal;
 

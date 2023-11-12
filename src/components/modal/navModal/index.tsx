@@ -1,19 +1,10 @@
 import BaseModal from "@/components/common/baseModal";
 import Icon from "@/components/common/icon";
 import * as S from "./styles";
-
-const NAV_LINKS = [
-  {
-    name: "커뮤니티",
-    path: "/community",
-    icon: <Icon name="home" />,
-  },
-  {
-    name: "공동구매",
-    path: "/fairs",
-    icon: <Icon name="store" />,
-  },
-];
+import { NAV_LINKS } from "@/constants/common.constants";
+import { useNavigate } from "react-router-dom";
+import Link from "@/components/common/link";
+import Logo from "@/components/common/logo";
 
 interface NavModalProps {
   onClose: () => void;
@@ -23,14 +14,14 @@ const NavModal = ({ onClose }: NavModalProps) => {
   return (
     <BaseModal onClose={onClose} side="left">
       <S.Container>
-        <p>NavModal</p>
-        <ul>
+        <Logo />
+        <S.LinkList>
           {NAV_LINKS.map((link) => (
-            <li key={link.name}>
-              <a href={link.path}>{link.icon}</a>
-            </li>
+            <S.LinkItem to={link.href} key={link.id} onClick={() => onClose()}>
+              <Icon name={link.icon} /> {link.name}
+            </S.LinkItem>
           ))}
-        </ul>
+        </S.LinkList>
       </S.Container>
     </BaseModal>
   );

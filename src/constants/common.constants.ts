@@ -52,3 +52,24 @@ export const TYPOGRAPHY_VARIANTS = {
   CAPTION1: "caption1",
   CAPTION2: "caption2",
 } as const;
+
+export const NAV_LINKS = [
+  {
+    id: 1,
+    name: "홈",
+    href: "/",
+    icon: "home",
+  },
+  {
+    id: 2,
+    name: "공동구매",
+    href: "/group-buy",
+    icon: "users-2",
+  },
+  {
+    id: 3,
+    name: "커뮤니티",
+    href: "/community",
+    icon: "laugh",
+  },
+] as const;

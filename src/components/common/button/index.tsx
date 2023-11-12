@@ -6,7 +6,7 @@ import {
 } from "@/types/types";
 import * as S from "./styles";
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variants?: ButtonVariants;
   color?: ButtonColors;
   size?: ButtonSizes;
@@ -26,6 +26,7 @@ const Button = ({
   onClick,
   type = "submit",
   full = false,
+  ...props
 }: ButtonProps) => {
   return (
     <S.Button
@@ -36,6 +37,7 @@ const Button = ({
       onClick={onClick}
       type={type}
       $full={full}
+      {...props}
     >
       {children}
     </S.Button>

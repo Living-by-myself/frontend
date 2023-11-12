@@ -1,25 +1,33 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  display: flex;
+
+  align-items: center;
+  height: 56px;
+  border: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  background-color: ${({ theme }) => theme.colors.gray[0]};
+`;
+
+export const Header = styled.header`
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 64px;
   padding: 12px 20px;
 `;
 
-export const LogoText = styled.p``;
-
 export const Nav = styled.nav`
   display: none;
+  gap: 2rem;
   @media (min-width: 768px) {
     display: flex;
   }
 `;
 
-export const MobileMenuButton = styled.button`
+export const MobileMenuButton = styled.div`
   display: block;
   @media (min-width: 768px) {
     display: none;
