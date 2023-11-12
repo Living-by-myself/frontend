@@ -98,10 +98,10 @@ export const Button = styled.button<{
         return css`
           background-color: transparent;
           color: #000;
-          border: 1px solid transparent;
+          border: none;
           font-weight: ${theme.fontWeights.normal};
           &:hover {
-            border: 1px solid ${theme.colors.gray[300]};
+            background-color: ${theme.colors.gray[200]};
           }
         `;
       default:
@@ -112,7 +112,7 @@ export const Button = styled.button<{
   ${({ size, theme, variants }) => {
     if (variants === BUTTON_VARIANTS.ICON) {
       return css`
-        padding: 0.4rem;
+        padding: 0.6rem;
       `;
     }
     switch (size) {
