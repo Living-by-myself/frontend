@@ -21,8 +21,8 @@ const PasswordResetForm = () => {
           </ErrorMessage>
         </S.FormRow>
         <S.FormRow>
-          <Label htmlFor="password-check">비밀번호 확인</Label>
-          <InputText placeholder="이메일" id="password-check" type="password" />
+          <Label htmlFor="passwordCheck">비밀번호 확인</Label>
+          <InputText placeholder="이메일" id="passwordCheck" type="password" />
           <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
         </S.FormRow>
 

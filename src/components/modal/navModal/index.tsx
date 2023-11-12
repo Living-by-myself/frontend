@@ -1,7 +1,8 @@
 import BaseModal from "@/components/common/baseModal";
 import Icon from "@/components/common/icon";
+import * as S from "./styles";
 
-const Links = [
+const NAV_LINKS = [
   {
     name: "커뮤니티",
     path: "/community",
@@ -21,22 +22,16 @@ interface NavModalProps {
 const NavModal = ({ onClose }: NavModalProps) => {
   return (
     <BaseModal onClose={onClose} side="left">
-      <div
-        style={{
-          borderRight: "1px solid #ccc",
-          height: "100%",
-          backgroundColor: "#fff",
-        }}
-      >
+      <S.Container>
         <p>NavModal</p>
         <ul>
-          {Links.map((link) => (
+          {NAV_LINKS.map((link) => (
             <li key={link.name}>
               <a href={link.path}>{link.icon}</a>
             </li>
           ))}
         </ul>
-      </div>
+      </S.Container>
     </BaseModal>
   );
 };

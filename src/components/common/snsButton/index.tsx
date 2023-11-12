@@ -1,16 +1,11 @@
+import { SNS_Buttons } from "@/types/types";
 import * as S from "./styles";
 import GOOGLE_ICON from "/google_login.svg";
 import KAKAO_ICON from "/kakao_login.svg";
-
-const SNS_BUTTONS = {
-  KAKAO: "kakao",
-  GOOGLE: "google",
-} as const;
-
-type SNS_BUTTONS = (typeof SNS_BUTTONS)[keyof typeof SNS_BUTTONS];
+import { SNS_BUTTONS } from "@/constants/common.constants";
 
 interface SNSButtonProps {
-  type: SNS_BUTTONS;
+  type: SNS_Buttons;
 }
 
 const SNSButton = ({ type, ...props }: SNSButtonProps) => {

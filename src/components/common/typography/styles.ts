@@ -1,12 +1,13 @@
+import { TYPOGRAPHY_VARIANTS } from "@/constants/common.constants";
+import { TypographyBold, TypographyVariants } from "@/types/types";
 import styled from "styled-components";
-import { TYPOGRAPHY_VARIANTS, TypographyBold, TypographyVariants } from ".";
 
 export const Typography = styled.p<{
-  bold: TypographyBold;
+  $bold: TypographyBold;
   variants: TypographyVariants;
 }>`
-  font-weight: ${({ bold, theme }) =>
-    bold ? theme.fontWeights.bold : theme.fontWeights.normal};
+  font-weight: ${({ $bold, theme }) =>
+    $bold ? theme.fontWeights.bold : theme.fontWeights.normal};
 
   font-size: ${({ theme, variants }) => {
     switch (variants) {

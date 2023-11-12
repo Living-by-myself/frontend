@@ -21,11 +21,6 @@ export const InputText = styled.input`
     -moz-appearance: textfield;
   }
 
-  &:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.colors.gray[400]};
-  }
-
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray[400]};
   }

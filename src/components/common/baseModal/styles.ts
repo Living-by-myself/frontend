@@ -1,52 +1,50 @@
+import { MODAL_SIDES } from "@/constants/modal.constants";
+import { ModalSides } from "@/types/types";
+import { motion } from "framer-motion";
 import styled from "styled-components";
-import { Side } from ".";
-import { ModalSide } from "@/constants/Modal";
 
 type ModalWrapperProps = {
-  side: Side;
+  side: ModalSides;
 };
 
-export const ModalWrapper = styled.div<ModalWrapperProps>`
+export const ModalWrapper = styled(motion.div)<ModalWrapperProps>`
   position: fixed;
   ${({ side }) => {
     switch (side) {
-      case ModalSide.LEFT:
+      case MODAL_SIDES.LEFT:
         return `
           top: 0;
           left: 0;
           height: 100vh;
         `;
-      case ModalSide.RIGHT:
+      case MODAL_SIDES.RIGHT:
         return `
           top: 0;
           right: 0;
           height: 100vh;
         `;
-      case ModalSide.TOP:
+      case MODAL_SIDES.TOP:
         return `
           top: 0;
-          left: 50%;
-          transform: translate(-50%, 0);
+          left: 0;
           width: 100vw;
         `;
-      case ModalSide.BOTTOM:
+      case MODAL_SIDES.BOTTOM:
         return `
           bottom: 0;
-          left: 50%;
-          transform: translate(-50%, 0);
+          left: 0;
           width: 100vw;
         `;
-      case ModalSide.CENTER:
+      case MODAL_SIDES.CENTER:
         return `
           top: 50%;
           left: 50%;
-          transform: translate(-50%, -50%);
         `;
     }
   }}
 `;
 
-export const ModalBackground = styled.div`
+export const ModalBackground = styled(motion.div)`
   position: fixed;
   left: 0;
   top: 0;

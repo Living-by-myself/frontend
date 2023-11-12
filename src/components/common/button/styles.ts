@@ -1,13 +1,11 @@
 import styled, { css } from "styled-components";
+import theme from "@/styles/theme";
+import { ButtonColors, ButtonSizes, ButtonVariants } from "@/types/types";
 import {
   BUTTON_COLORS,
   BUTTON_SIZES,
   BUTTON_VARIANTS,
-  ButtonColors,
-  ButtonSizes,
-  ButtonVariants,
-} from ".";
-import theme from "@/styles/theme";
+} from "@/constants/common.constants";
 
 const getColor = (color: ButtonColors) => {
   switch (color) {
@@ -39,6 +37,7 @@ export const Button = styled.button<{
   variants: ButtonVariants;
   color: ButtonColors;
   size: ButtonSizes;
+  $full: boolean;
 }>`
   display: inline-flex;
   align-items: center;
@@ -47,6 +46,8 @@ export const Button = styled.button<{
   border-radius: 0.8rem;
   font-size: ${({ theme }) => theme.fontSizes.base};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+  width: ${({ $full }) => ($full ? "100%" : "auto")};
+
   &:hover {
     cursor: pointer;
   }
@@ -91,22 +92,29 @@ export const Button = styled.button<{
           color: ${theme.colors.gray[900]};
           border: none;
           font-weight: ${theme.fontWeights.normal};
-          &:hover {
-            text-decoration: underline;
-          }
+          text-decoration: underline;
         `;
       case BUTTON_VARIANTS.ICON:
         return css`
           background-color: transparent;
           color: #000;
-          border: none;
+          border: 1px solid transparent;
+          font-weight: ${theme.fontWeights.normal};
+          &:hover {
+            border: 1px solid ${theme.colors.gray[300]};
+          }
         `;
       default:
         return "";
     }
   }}
 
-  ${({ size, theme }) => {
+  ${({ size, theme, variants }) => {
+    if (variants === BUTTON_VARIANTS.ICON) {
+      return css`
+        padding: 0.4rem;
+      `;
+    }
     switch (size) {
       case BUTTON_SIZES.SM:
         return css`

@@ -1,14 +1,6 @@
 import { LinkProps as RLinkProps } from "react-router-dom";
 import * as S from "./styles";
-
-export const LINK_SIZE = {
-  SM: "sm",
-  MD: "md",
-  LG: "lg",
-} as const;
-
-export type LinkSize = (typeof LINK_SIZE)[keyof typeof LINK_SIZE];
-export type LinkBold = boolean;
+import { LinkBold, LinkSize } from "@/types/types";
 
 interface LinkProp extends RLinkProps {
   bold?: LinkBold;

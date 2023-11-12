@@ -1,31 +1,10 @@
+import {
+  ButtonColors,
+  ButtonFullWidth,
+  ButtonSizes,
+  ButtonVariants,
+} from "@/types/types";
 import * as S from "./styles";
-
-export const BUTTON_VARIANTS = {
-  CONTAIN: "contain",
-  OUTLINE: "outline",
-  TEXT: "text",
-  LINK: "link",
-  ICON: "icon",
-} as const;
-
-export const BUTTON_COLORS = {
-  PRIMARY: "primary",
-  SUCCESS: "success",
-  DANGER: "danger",
-} as const;
-
-export const BUTTON_SIZES = {
-  SM: "sm",
-  MD: "md",
-  LG: "lg",
-} as const;
-
-export type ButtonVariants =
-  (typeof BUTTON_VARIANTS)[keyof typeof BUTTON_VARIANTS];
-
-export type ButtonColors = (typeof BUTTON_COLORS)[keyof typeof BUTTON_COLORS];
-
-export type ButtonSizes = (typeof BUTTON_SIZES)[keyof typeof BUTTON_SIZES];
 
 interface ButtonProps {
   variants?: ButtonVariants;
@@ -35,6 +14,7 @@ interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
+  full?: ButtonFullWidth;
 }
 
 const Button = ({
@@ -45,6 +25,7 @@ const Button = ({
   children,
   onClick,
   type = "submit",
+  full = false,
 }: ButtonProps) => {
   return (
     <S.Button
@@ -54,6 +35,7 @@ const Button = ({
       disabled={disabled}
       onClick={onClick}
       type={type}
+      $full={full}
     >
       {children}
     </S.Button>

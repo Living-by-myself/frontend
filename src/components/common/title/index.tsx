@@ -1,20 +1,12 @@
+import { TitleLevels } from "@/types/types";
 import * as S from "./styles";
 
-export const TITLE_LEVELS = {
-  H1: 1,
-  H2: 2,
-  H3: 3,
-  H4: 4,
-} as const;
-
-export type TitleLevel = (typeof TITLE_LEVELS)[keyof typeof TITLE_LEVELS];
-
 interface TitleProps {
-  level: TitleLevel;
+  level: TitleLevels;
   children: React.ReactNode;
 }
 
-const getTitle = (level: TitleLevel) => {
+const getTitle = (level: TitleLevels) => {
   switch (level) {
     case 1:
       return "h1";

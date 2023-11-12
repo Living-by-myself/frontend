@@ -8,7 +8,6 @@ export const Container = styled.div`
   align-items: center;
   height: 64px;
   padding: 12px 20px;
-  /* background-color: beige; */
 `;
 
 export const LogoText = styled.p``;

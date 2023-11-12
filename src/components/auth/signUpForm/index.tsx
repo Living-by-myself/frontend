@@ -29,16 +29,16 @@ const SignUpForm = () => {
           </ErrorMessage>
         </S.FormRow>
         <S.FormRow>
-          <Label htmlFor="password-check">비밀번호 확인</Label>
-          <InputText placeholder="이메일" id="password-check" type="password" />
+          <Label htmlFor="passwordCheck">비밀번호 확인</Label>
+          <InputText placeholder="이메일" id="passwordCheck" type="password" />
           <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
         </S.FormRow>
         <S.FormRow>
           <Label htmlFor="phone">전화번호</Label>
-          <div style={{ display: "flex", gap: "1rem" }}>
+          <S.FormColumn>
             <InputText placeholder="전화번호" id="phone" type="tel" />
             <Button onClick={() => {}}>인증번호 받기</Button>
-          </div>
+          </S.FormColumn>
           <InputText
             placeholder="인증번호 6자리 숫자 입력"
             id="phone_auth_number"

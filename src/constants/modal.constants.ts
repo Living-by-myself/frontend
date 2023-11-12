@@ -1,4 +1,4 @@
-export const ModalSide = {
+export const MODAL_SIDES = {
   LEFT: "left",
   RIGHT: "right",
   TOP: "top",

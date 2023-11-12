@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link as RLink } from "react-router-dom";
-import { LINK_SIZE, LinkSize, LinkBold } from ".";
+import { LinkBold, LinkSize } from "@/types/types";
+import { LINK_SIZE } from "@/constants/common.constants";
 
 export const Link = styled(RLink)<{ size: LinkSize; bold: LinkBold }>`
   color: ${({ theme }) => theme.colors.gray[800]};
