@@ -1,8 +1,12 @@
+import CommunityWrite from "@/components/community/write";
 import { MobileContainer } from "@/styles/commonStyles";
-import React from "react";
 
 const CommunityWritePage = () => {
-  return <MobileContainer>CommunityWritePage</MobileContainer>;
+  return (
+    <MobileContainer>
+      <CommunityWrite />
+    </MobileContainer>
+  );
 };
 
 export default CommunityWritePage;

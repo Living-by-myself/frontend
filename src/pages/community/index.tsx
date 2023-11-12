@@ -2,6 +2,7 @@ import { MobileContainer } from "@/styles/commonStyles";
 
 import { S } from "./styles";
 import CommunityPost from "@/components/community/post";
+import RoundButton from "@/components/common/roundButton";
 
 const dummy = [
   {
@@ -81,9 +82,8 @@ const CommunityPage = () => {
   return (
     <MobileContainer>
       <S.FilterArea>
-        <S.FilterBtn>최신순</S.FilterBtn>
-        <S.FilterBtn>좋아요순</S.FilterBtn>
-        <S.FilterBtn>댓글 많은 순</S.FilterBtn>
+        <RoundButton onClick={() => {}} isCheck={true} children="글쓰기" />
+        <RoundButton onClick={() => {}} isCheck={false} children="최신순" />
       </S.FilterArea>
       {dummy.map((post: Post) => {
         return (

@@ -1,12 +1,18 @@
 import Icon from "@/components/common/icon";
 import { Post } from "@/pages/community";
+import { useNavigate } from "react-router-dom";
 // import { S } from "./styles";
 // import theme from "@/styles/theme";
 import styled from "styled-components";
 
 const CommunityPost = (props: Post) => {
+  const navigate = useNavigate();
   return (
-    <S.Container>
+    <S.Container
+      onClick={() => {
+        navigate(`/community/${props.id}`);
+      }}
+    >
       <S.ContentsBox>
         <S.TitleBodyBox $isImage={props.fileUrls !== null ? true : false}>
           <S.CategoryContainer>{props.category} 인기글</S.CategoryContainer>
@@ -52,6 +58,7 @@ const S = {
   Container: styled.div`
     padding: 14px 0 16px;
     width: 100%;
+    background-color: red;
   `,
   CategoryContainer: styled.div`
     font-size: ${({ theme }) => theme.fontSizes.xxs};
