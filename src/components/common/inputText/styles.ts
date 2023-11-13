@@ -25,7 +25,7 @@ export const InputText = styled.input`
     color: ${({ theme }) => theme.colors.gray[400]};
   }
   &:disabled {
-    color: ${({ theme }) => theme.colors.gray[700]};
+    color: ${({ theme }) => theme.colors.gray[400]};
     &::placeholder {
       color: ${({ theme }) => theme.colors.gray[300]};
     }
