@@ -65,8 +65,6 @@ const DUMMY_DATA: GroupBuyPreviewType[] = [
   },
 ];
 
-console.log(DUMMY_DATA);
-
 const getCategoryName = (category: GroupBuyCategoriesValues) => {
   const foundCategory = Object.values(GROUP_BUY_CATEGORIES).find(
     (c) => c.value === category,

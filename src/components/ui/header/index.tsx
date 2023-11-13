@@ -49,7 +49,11 @@ const Header = () => {
             로그인
           </Button>
         </S.RightMenu>
-        <S.MobileRightMenu></S.MobileRightMenu>
+        <S.MobileRightMenu>
+          <Button variants="icon">
+            <Icon name="search" color="#212121" />
+          </Button>
+        </S.MobileRightMenu>
       </S.Header>
     </S.Container>
   );
