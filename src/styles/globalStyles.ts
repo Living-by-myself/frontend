@@ -25,6 +25,10 @@ const GlobalStyles = createGlobalStyle`
     body {
         font-size: 1.6rem;
     }
+
+    a {
+        text-decoration: none;
+    }
 `;
 
 export default GlobalStyles;

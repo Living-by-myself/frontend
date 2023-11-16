@@ -13,5 +13,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  plugins: [react(), mkcert()],
+  plugins: [react()],
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://tracelover.shop",
+        changeOrigin: true,
+      },
+    },
+  },
 });

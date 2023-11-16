@@ -26,6 +26,16 @@ export type Location = {
   address_name: Region["address_name"];
 } | null;
 
+export type Coord2RegionCodeType = (
+  lng: number,
+  lat: number,
+  callback: (result: Region[], status: "OK" | "ERROR" | "ZERO_RESULT") => void,
+) => void;
+
+export type GeoCoderType = {
+  coord2RegionCode: Coord2RegionCodeType;
+};
+
 interface MapProps extends ModalCommonProps {
   onConfirm: (props: Location) => void;
 }
@@ -37,7 +47,7 @@ function truncateTo6DecimalPlaces(number: number) {
 const LSMap = ({ onClose, onConfirm }: MapProps) => {
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
-  const geoCoderRef = useRef<any>(null);
+  const geoCoderRef = useRef<GeoCoderType | null>(null);
   const [isLoading, setLoading] = useState(true);
   const [result, setResult] = useState<Region | null>(null);
 
@@ -58,6 +68,7 @@ const LSMap = ({ onClose, onConfirm }: MapProps) => {
   useEffect(() => {
     if (!geoCoderRef.current || !mapRef.current) return;
     const moveLatLon = new window.kakao.maps.LatLng(latlng.lat, latlng.lng);
+    // @ts-expect-error: setCenter is function
     mapRef.current.setCenter(moveLatLon);
     geoCoderRef.current.coord2RegionCode(
       latlng.lng,
@@ -153,6 +164,7 @@ const UserLocationModal = ({ onConfirm, onClose }: MapProps) => {
   );
 };
 
+// @ts-expect-error: Marker have map props
 const Marker = ({ map }) => {
   const markerRef = useRef(null);
   useEffect(() => {
@@ -177,11 +189,13 @@ const Marker = ({ map }) => {
         truncateTo6DecimalPlaces(latlng.getLat()),
         truncateTo6DecimalPlaces(latlng.getLng()),
       );
+      // @ts-expect-error: setPosition is function
       markerRef.current.setPosition(newPosition);
     });
 
     return () => {
       if (markerRef.current) {
+        // @ts-expect-error: setMap is function
         markerRef.current.setMap(null);
       }
     };
