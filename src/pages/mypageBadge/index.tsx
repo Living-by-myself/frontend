@@ -1,21 +1,24 @@
+import { MobileContainer } from "@/styles/commonStyles";
 import styled from "styled-components";
 
 const MyPageBadge = () => {
   return (
-    <S.Container>
-      <S.ProfileImageBox>
-        <S.ProfileImage src="https://via.placeholder.com/70" />
-      </S.ProfileImageBox>
-      <S.UserName>김토스 님의 활동배지</S.UserName>
-      <S.UserInfo>총 00개의 배지를 모으셨어요!</S.UserInfo>
-      <S.BadgeContainer>
-        {/* 난중에 컴포넌트 분리하고 map */}
-        <S.Badge>
-          <S.BadgeGraphic></S.BadgeGraphic>
-          <S.BadgeTitle>뱃지명10자이내입니다.</S.BadgeTitle>
-        </S.Badge>
-      </S.BadgeContainer>
-    </S.Container>
+    <MobileContainer>
+      <S.Container>
+        <S.ProfileImageBox>
+          <S.ProfileImage src="https://via.placeholder.com/70" />
+        </S.ProfileImageBox>
+        <S.UserName>김토스 님의 활동배지</S.UserName>
+        <S.UserInfo>총 00개의 배지를 모으셨어요!</S.UserInfo>
+        <S.BadgeContainer>
+          {/* 난중에 컴포넌트 분리하고 map */}
+          <S.Badge>
+            <S.BadgeGraphic></S.BadgeGraphic>
+            <S.BadgeTitle>뱃지명10자이내입니다.</S.BadgeTitle>
+          </S.Badge>
+        </S.BadgeContainer>
+      </S.Container>
+    </MobileContainer>
   );
 };
 

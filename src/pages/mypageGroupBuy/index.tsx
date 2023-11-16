@@ -1,7 +1,8 @@
+import { MobileContainer } from "@/styles/commonStyles";
 import React from "react";
 
 const MyPageGroupBuy = () => {
-  return <div>MyPageGroupBuy</div>;
+  return <MobileContainer>MyPageGroupBuy</MobileContainer>;
 };
 
 export default MyPageGroupBuy;
