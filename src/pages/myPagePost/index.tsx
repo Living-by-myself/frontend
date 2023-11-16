@@ -1,8 +1,7 @@
-import { MobileContainer } from "@/styles/commonStyles";
-
-import { S } from "./styles";
-import CommunityPost from "@/components/community/post";
 import RoundButton from "@/components/common/roundButton";
+import CommunityPost from "@/components/community/post";
+import { MobileContainer } from "@/styles/commonStyles";
+import styled from "styled-components";
 
 const dummy = [
   {
@@ -76,20 +75,7 @@ export interface Post {
   fileUrls: string | null;
 }
 
-const CommunityPage = () => {
-  // 무한스크롤 로직 필요
-
-  // const getPosts = async () => {
-  //   const result = axios.get("https://tracelover.shop/home/communities", {
-  //     withCredentials: true,
-  //   });
-  //   console.log(result);
-  // };
-
-  // useEffect(() => {
-  //   getPosts();
-  // }, []);
-
+const MyPagePost = () => {
   return (
     <MobileContainer>
       <S.FilterArea>
@@ -119,4 +105,26 @@ const CommunityPage = () => {
   );
 };
 
-export default CommunityPage;
+export default MyPagePost;
+
+const S = {
+  FilterArea: styled.div`
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  `,
+  FilterBtn: styled.button`
+    padding: 8px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background-color: transparent;
+    border: 1px solid ${({ theme }) => theme.colors.green[300]};
+    font-weight: ${({ theme }) => theme.fontWeights.normal};
+    font-size: ${({ theme }) => theme.fontSizes.xs};
+    color: ${({ theme }) => theme.colors.green[300]};
+  `,
+};

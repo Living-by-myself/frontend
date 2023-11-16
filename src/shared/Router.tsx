@@ -21,6 +21,9 @@ import MyPage from "@/pages/mypage";
 import UserUpdateInfoPage from "@/pages/userUpdateInfo";
 import PasswordUpdatePage from "@/pages/passwordUpdate";
 import PointChargePage from "@/pages/pointCharge";
+import MyPageBadge from "@/pages/mypageBadge";
+import MyPagePost from "@/pages/myPagePost";
+import MyPageGroupBuy from "@/pages/mypageGroupBuy";
 
 const Router = () => {
   return (
@@ -46,6 +49,9 @@ const Router = () => {
 
         <Route element={<PrivateRoute />}>
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage/badge" element={<MyPageBadge />} />
+          <Route path="/mypage/post" element={<MyPagePost />} />
+          <Route path="/mypage/group-buy" element={<MyPageGroupBuy />} />
           <Route path="/mypage/update" element={<UserUpdateInfoPage />} />
           <Route
             path="/mypage/password-update"
