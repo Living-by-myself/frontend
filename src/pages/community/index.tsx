@@ -3,8 +3,19 @@ import { MobileContainer } from "@/styles/commonStyles";
 import { S } from "./styles";
 import CommunityPost from "@/components/community/post";
 import RoundButton from "@/components/common/roundButton";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import {
+  CommunityCategoriesValues,
+  CommunityFiltersValues,
+} from "@/types/types";
+import CategoryModal from "@/components/community/categoryModal";
+import {
+  COMMUNITY_CATEGORIES,
+  COMMUNITY_FILTERS,
+} from "@/constants/community.constants";
+import useOverlay from "@/hooks/useOverlay";
+import FilterModal from "@/components/community/filterModal";
 
 const dummy = [
   {
@@ -78,11 +89,83 @@ export interface Post {
   fileUrls: string | null;
 }
 
+const getCategoryName = (category: CommunityCategoriesValues) => {
+  const foundCategory = Object.values(COMMUNITY_CATEGORIES).find(
+    (c) => c.value === category,
+  );
+  return foundCategory ? foundCategory.name : "카테고리";
+};
+
+const getFilterName = (filter: CommunityFiltersValues) => {
+  const foundFilter = Object.values(COMMUNITY_FILTERS).find(
+    (c) => c.value === filter,
+  );
+  return foundFilter ? foundFilter.name : "필터";
+};
+
 const CommunityPage = () => {
   // 무한스크롤 로직 필요
   // 리액트 쿼리로 리팩토링 필요함
   const [posts, setPost] = useState<Post[]>([]);
 
+  const overlay = useOverlay();
+  const [category, setCategory] = useState<CommunityCategoriesValues>("all");
+  const [filter, setFilter] = useState<CommunityFiltersValues>("latest");
+
+  const openCategoryModal = (
+    category: CommunityCategoriesValues,
+  ): Promise<CommunityCategoriesValues> => {
+    return new Promise((resolve) => {
+      overlay.open(({ close }) => (
+        <CategoryModal
+          initCategory={category}
+          onConfirm={(c) => {
+            resolve(c);
+            close();
+          }}
+          onClose={() => {
+            resolve(category);
+            close();
+          }}
+        />
+      ));
+    });
+  };
+
+  const openFilterModal = (
+    filter: CommunityFiltersValues,
+  ): Promise<CommunityFiltersValues> => {
+    return new Promise((resolve) => {
+      overlay.open(({ close }) => (
+        <FilterModal
+          initFilter={filter}
+          onConfirm={(f) => {
+            resolve(f);
+            close();
+          }}
+          onClose={() => {
+            resolve(filter);
+            close();
+          }}
+        />
+      ));
+    });
+  };
+
+  const categoryName = useMemo(() => getCategoryName(category), [category]);
+  const filterName = useMemo(() => getFilterName(filter), [filter]);
+
+  const handleOpenCategoryModal = async () => {
+    const confirm = await openCategoryModal(category);
+    setCategory(confirm);
+  };
+
+  const handleOpenFilterModal = async () => {
+    const confirm = await openFilterModal(filter);
+    setFilter(confirm);
+  };
+
+  // 데이터 서버에서 받아오는 로직 리액트 쿼리화 필요
   const getPosts = async () => {
     axios({
       method: "get",
@@ -105,20 +188,28 @@ const CommunityPage = () => {
   }, []);
 
   // 글이 잘들어오는지 테스트해봐야함
-  if (posts.length === 0) {
-    return (
-      <MobileContainer>아무런 글도 작성되어있지가 않음...!</MobileContainer>
-    );
-  }
+  // if (posts.length === 0) {
+  //   return (
+  //     <MobileContainer>아무런 글도 작성되어있지가 않음...!</MobileContainer>
+  //   );
+  // }
 
   return (
     <MobileContainer>
       <S.FilterArea>
-        <RoundButton onClick={() => {}} isCheck={true} children="글쓰기" />
-        <RoundButton onClick={() => {}} isCheck={false} children="최신순" />
+        <RoundButton
+          onClick={handleOpenCategoryModal}
+          isCheck={true}
+          children={categoryName}
+        />
+        <RoundButton
+          onClick={handleOpenFilterModal}
+          isCheck={false}
+          children={filterName}
+        />
       </S.FilterArea>
 
-      {posts.map((post: Post) => {
+      {dummy.map((post: Post) => {
         return (
           <CommunityPost
             key={post.id}

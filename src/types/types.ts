@@ -9,6 +9,10 @@ import {
   TYPOGRAPHY_VARIANTS,
 } from "@/constants/common.constants";
 import {
+  COMMUNITY_CATEGORIES,
+  COMMUNITY_FILTERS,
+} from "@/constants/community.constants";
+import {
   GROUP_BUY_CATEGORIES,
   GROUP_BUY_FILTERS,
 } from "@/constants/groupBuy.constants";
@@ -32,6 +36,16 @@ export type GroupBuyCategories =
   (typeof GROUP_BUY_CATEGORIES)[keyof typeof GROUP_BUY_CATEGORIES];
 
 export type GroupBuyCategoriesValues = GroupBuyCategories["value"];
+
+export type CommunityCategories =
+  (typeof COMMUNITY_CATEGORIES)[keyof typeof COMMUNITY_CATEGORIES];
+
+export type CommunityCategoriesValues = CommunityCategories["value"];
+
+export type CommunityFilters =
+  (typeof COMMUNITY_FILTERS)[keyof typeof COMMUNITY_FILTERS];
+
+export type CommunityFiltersValues = CommunityFilters["value"];
 
 export type GroupBuyFilters =
   (typeof GROUP_BUY_FILTERS)[keyof typeof GROUP_BUY_FILTERS];
