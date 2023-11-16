@@ -3,6 +3,8 @@ import { MobileContainer } from "@/styles/commonStyles";
 import { S } from "./styles";
 import CommunityPost from "@/components/community/post";
 import RoundButton from "@/components/common/roundButton";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const dummy = [
   {
@@ -78,17 +80,36 @@ export interface Post {
 
 const CommunityPage = () => {
   // 무한스크롤 로직 필요
+  // 리액트 쿼리로 리팩토링 필요함
+  const [posts, setPost] = useState<Post[]>([]);
 
-  // const getPosts = async () => {
-  //   const result = axios.get("https://tracelover.shop/home/communities", {
-  //     withCredentials: true,
-  //   });
-  //   console.log(result);
-  // };
+  const getPosts = async () => {
+    axios({
+      method: "get",
+      url: "https://tracelover.shop/home/communities",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        setPost(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-  // useEffect(() => {
-  //   getPosts();
-  // }, []);
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  // 글이 잘들어오는지 테스트해봐야함
+  if (posts.length === 0) {
+    return (
+      <MobileContainer>아무런 글도 작성되어있지가 않음...!</MobileContainer>
+    );
+  }
 
   return (
     <MobileContainer>
@@ -96,7 +117,8 @@ const CommunityPage = () => {
         <RoundButton onClick={() => {}} isCheck={true} children="글쓰기" />
         <RoundButton onClick={() => {}} isCheck={false} children="최신순" />
       </S.FilterArea>
-      {dummy.map((post: Post) => {
+
+      {posts.map((post: Post) => {
         return (
           <CommunityPost
             key={post.id}

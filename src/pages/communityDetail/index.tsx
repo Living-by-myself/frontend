@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostDetailCommentInput from "@/components/community/comments/commentInput";
 import PostDetailCommentList from "@/components/community/comments/list";
 import PostDetailLikes from "@/components/community/postDetail/like";
@@ -6,6 +6,7 @@ import PostDetailBody from "@/components/community/postDetail/postBody";
 import PostDetailUser from "@/components/community/postDetail/user";
 import { MobileContainer } from "@/styles/commonStyles";
 import styled from "styled-components";
+import axios from "axios";
 
 const dummy = {
   id: 6,
@@ -30,6 +31,37 @@ export const userInfo = {
 const CommunityDetailPage = () => {
   // 리액트 쿼리활용 아이디값 기준의 값을 GET!
   const [post] = useState<typeof dummy>(dummy);
+
+  const getPosts = async () => {
+    // const result = axios.get("https://tracelover.shop/home/communities", {
+    //   withCredentials: true,
+    // });
+    // console.log(result);
+
+    axios({
+      method: "get",
+      url: "https://tracelover.shop/home/communities/1",
+
+      headers: {
+        "Content-Type": "application/json",
+
+        // 다른 필요한 헤더들...
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        // 응답 처리...
+      })
+      .catch((error) => {
+        // 오류 처리...
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
   // 동일하게 유저 정보를 따로 받던가 아니면 아래와 같이 받아서 사용하면 될듯
 
   return (

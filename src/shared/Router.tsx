@@ -24,6 +24,9 @@ import PointChargePage from "@/pages/pointCharge";
 import MyPageBadge from "@/pages/mypageBadge";
 import MyPagePost from "@/pages/myPagePost";
 import MyPageGroupBuy from "@/pages/mypageGroupBuy";
+import ChattingPage from "@/pages/\bchatting";
+import ChattingDetailPage from "@/pages/chattingDetail";
+import ChattingDetailEdit from "@/pages/chattingDetailEdit";
 
 const Router = () => {
   return (
@@ -47,7 +50,12 @@ const Router = () => {
         <Route path="/community/:id" element={<CommunityDetailPage />} />
         <Route path="/community/write" element={<CommunityWritePage />} />
 
+        <Route path="/chat" element={<ChattingPage />} />
+        <Route path="/chat/:id" element={<ChattingDetailPage />} />
+        <Route path="/chat/:id/edit" element={<ChattingDetailEdit />} />
+
         <Route element={<PrivateRoute />}>
+          {/* 마이페이지 등... 로그인 후 사용 가능한 페이지들... */}
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/mypage/badge" element={<MyPageBadge />} />
           <Route path="/mypage/post" element={<MyPagePost />} />
@@ -58,7 +66,6 @@ const Router = () => {
             element={<PasswordUpdatePage />}
           />
           <Route path="/mypage/point-charge" element={<PointChargePage />} />
-          {/* 마이페이지 등... 로그인 후 사용 가능한 페이지들... */}
         </Route>
       </Route>
     </Routes>
