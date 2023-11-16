@@ -10,6 +10,7 @@ import theme from "@/styles/theme";
 import StaticMap from "@/components/kakaoMap/staticMap";
 import DetailImagesSlider from "@/components/groupBuy/DetailImagesSlider";
 import Button from "@/components/common/button";
+import { useState } from "react";
 
 const DUMMY_DATA = {
   title: "폴라로이드 카메라 필름 4명 공동구매합니다.",
@@ -30,6 +31,12 @@ const DUMMY_DATA = {
 };
 
 const GroupBuyDetailPage = () => {
+  const [isLiked, setIsLiked] = useState(false);
+
+  const toggleLike = () => {
+    setIsLiked((prev) => !prev);
+  };
+
   return (
     <MobileContainer>
       <S.CarouselContainer>
@@ -81,8 +88,12 @@ const GroupBuyDetailPage = () => {
         <StaticMap lat={DUMMY_DATA.lat} lng={DUMMY_DATA.lng} />
       </S.DetailContainer>
       <S.BottomContainer>
-        <Button variants="icon">
-          <Icon name="heart" color={theme.colors.gray[400]} />
+        <Button variants="icon" onClick={toggleLike}>
+          <Icon
+            name="heart"
+            color={isLiked ? "#ff0000" : theme.colors.gray[400]}
+            fill={isLiked ? "#ff0000" : "#fff"}
+          />
         </Button>
         <Button variants="outline" full>
           채팅하기

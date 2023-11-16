@@ -7,6 +7,9 @@ export const Container = styled.div`
   width: 200px;
   background-color: ${({ theme }) => theme.colors.gray[0]};
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const LinkList = styled.ul`
@@ -27,4 +30,12 @@ export const LinkItem = styled(Link)`
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray[200]};
   }
+`;
+
+export const Nav = styled.nav``;
+
+export const Bottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;

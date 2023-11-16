@@ -1,7 +1,7 @@
 import { TitleLevels } from "@/types/types";
 import * as S from "./styles";
 
-interface TitleProps {
+interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
   level: TitleLevels;
   children: React.ReactNode;
 }

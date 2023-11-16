@@ -80,6 +80,7 @@ const getFilterName = (filter: GroupBuyFiltersValues) => {
 };
 
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 
 const GroupBuyPage = () => {
   const overlay = useOverlay();
@@ -142,13 +143,21 @@ const GroupBuyPage = () => {
   return (
     <MobileContainer>
       <div>
-        <Title level={1}>공동구매</Title>
-        <Button variants="outline" size="sm" onClick={handleOpenCategoryModal}>
-          {categoryName}
-        </Button>
-        <Button variants="outline" size="sm" onClick={handleOpenFilterModal}>
-          {filterName}
-        </Button>
+        <Title level={1} style={{ textAlign: "center" }}>
+          공동구매
+        </Title>
+        <div style={{ display: "flex", gap: "1rem" }}>
+          <Button
+            variants="outline"
+            size="sm"
+            onClick={handleOpenCategoryModal}
+          >
+            {categoryName}
+          </Button>
+          <Button variants="outline" size="sm" onClick={handleOpenFilterModal}>
+            {filterName}
+          </Button>
+        </div>
       </div>
       <div>
         <Checkbox id="toggleOnlySell" />
@@ -158,7 +167,9 @@ const GroupBuyPage = () => {
         {DUMMY_DATA.map((data) => {
           return (
             <li key={data.id} style={{ borderBottom: "1px solid #eee" }}>
-              <GroupBuyPreview data={data} />
+              <Link to={`/group-buy/${data.id}`}>
+                <GroupBuyPreview data={data} />
+              </Link>
             </li>
           );
         })}

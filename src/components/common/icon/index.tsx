@@ -1,19 +1,24 @@
 import { lazy, Suspense } from "react";
 import { LucideProps } from "lucide-react";
 import dynamicIconImports from "lucide-react/dynamicIconImports";
+import styled from "styled-components";
 
-const fallback = <div style={{ background: "#ddd", width: 24, height: 24 }} />;
+const FallBack = styled.div<{ $size: string | number | undefined }>`
+  background-color: transparent;
+  width: ${({ $size }) => (typeof $size === "number" ? `${$size}px` : "24px")};
+  height: ${({ $size }) => (typeof $size === "number" ? `${$size}px` : "24px")};
+`;
 
 interface IconProps extends Omit<LucideProps, "ref"> {
   name: keyof typeof dynamicIconImports;
 }
 
-const Icon = ({ name, ...props }: IconProps) => {
+const Icon = ({ name, size, ...props }: IconProps) => {
   const LucideIcon = lazy(dynamicIconImports[name]);
 
   return (
-    <Suspense fallback={fallback}>
-      <LucideIcon {...props} />
+    <Suspense fallback={<FallBack $size={size} />}>
+      <LucideIcon {...props} size={size} />
     </Suspense>
   );
 };
