@@ -1,14 +1,47 @@
 import RoundButton from "@/components/common/roundButton";
-import React from "react";
+import { useCommunityWriteStore } from "@/store/useCommunityStore";
 import styled from "styled-components";
 
 const CommunityWriteCategory = () => {
+  const category = useCommunityWriteStore((state) => state.category);
+  const clickCategory = (value: string) => {
+    useCommunityWriteStore.setState({ category: value });
+  };
+
   return (
     <S.Container>
-      <RoundButton>청소</RoundButton>
-      <RoundButton>인테리어</RoundButton>
-      <RoundButton>요리</RoundButton>
-      <RoundButton>자유</RoundButton>
+      <RoundButton
+        onClick={() => {
+          clickCategory("clean");
+        }}
+        isCheck={category === "clean" && true}
+      >
+        청소
+      </RoundButton>
+      <RoundButton
+        onClick={() => {
+          clickCategory("interior");
+        }}
+        isCheck={category === "interior" && true}
+      >
+        인테리어
+      </RoundButton>
+      <RoundButton
+        onClick={() => {
+          clickCategory("food");
+        }}
+        isCheck={category === "food" && true}
+      >
+        요리
+      </RoundButton>
+      <RoundButton
+        onClick={() => {
+          clickCategory("etc");
+        }}
+        isCheck={category === "etc" && true}
+      >
+        자유
+      </RoundButton>
     </S.Container>
   );
 };
