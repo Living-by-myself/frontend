@@ -1,19 +1,46 @@
 import Icon from "@/components/common/icon";
+import { useCommunityWriteStore } from "@/store/useCommunityStore";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 
 const CommunityWriteImage = () => {
+  // const [files, setFiles] = useCommunityWriteStore();
+  // const [img, setImg] = useState<File[] | null>(null)
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const file = useCommunityWriteStore((state) => state.file);
+
   return (
     <S.Container>
-      <S.Button>
+      <S.Button
+        onClick={() => {
+          inputRef.current?.click();
+        }}
+      >
         <Icon name="camera" size={16} />
+        {/* <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          multiple
+          style={{ display: "none" }}
+          onChange={(e) => {
+            if (e.target.files) {
+              // setImg(e.target.files);
+              // setFiles(e.target.files);
+              file.set(e.target.files);
+            }
+          }} */}
+        {/* /> */}
+
         <S.ImageCounter>0 / 5</S.ImageCounter>
       </S.Button>
       <S.ImageArea>
+        {/* <S.Image src="https://via.placeholder.com/46" />
         <S.Image src="https://via.placeholder.com/46" />
         <S.Image src="https://via.placeholder.com/46" />
         <S.Image src="https://via.placeholder.com/46" />
-        <S.Image src="https://via.placeholder.com/46" />
-        <S.Image src="https://via.placeholder.com/46" />
+        <S.Image src="https://via.placeholder.com/46" /> */}
       </S.ImageArea>
     </S.Container>
   );

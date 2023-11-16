@@ -21,3 +21,10 @@ export interface GroupBuyFormData {
   images: FileList;
   enumShare: "BUY" | "SHARE";
 }
+
+export interface CommunityWriteFormData {
+  title: string;
+  description: string;
+  images: FileList;
+  category: string;
+}

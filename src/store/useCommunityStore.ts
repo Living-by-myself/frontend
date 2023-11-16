@@ -4,7 +4,7 @@ interface CommunityWriteStore {
   title: string;
   body: string;
   category: string;
-  file: File | null;
+  file: File[] | null;
 }
 
 export const useCommunityWriteStore = create<CommunityWriteStore>((set) => ({
@@ -15,5 +15,5 @@ export const useCommunityWriteStore = create<CommunityWriteStore>((set) => ({
   setTitle: (title: string) => set({ title }),
   setBody: (body: string) => set({ body }),
   setCategory: (category: string) => set({ category }),
-  setFile: (file: File | null) => set({ file }),
+  setFile: (file: File[] | null) => set({ file }),
 }));
