@@ -1,29 +1,51 @@
-export const GROUP_BUY_CATEGORIES = {
-  ALL: {
-    name: "전체",
-    value: "all",
+export const GROUP_BUY_STATUS = {
+  ONGOING: {
+    name: "진행중",
+    value: "ONGOING",
   },
-  FOOD: {
-    name: "음식",
-    value: "food",
-  },
-  NECESSITY: {
-    name: "생필품",
-    value: "necessity",
-  },
-  ETC: {
-    name: "기타",
-    value: "etc",
+  DEADLINE: {
+    name: "마감",
+    value: "DEADLINE",
   },
 } as const;
 
-export const GROUP_BUY_FILTERS = {
-  LATEST: {
-    name: "최신순",
-    value: "latest",
+export const GROUP_BUY_CATEGORY_SHARE = {
+  BUY: {
+    name: "구매",
+    value: "BUY",
   },
-  LOW_PRICE: {
-    name: "낮은 가격순",
-    value: "lowPrice",
+  SHARE: {
+    name: "나눔",
+    value: "SHARE",
+  },
+} as const;
+
+export const GROUP_BUY_CATEGORIES = {
+  ALL: {
+    name: "전체",
+    value: "ALL",
+  },
+  FOOD: {
+    name: "음식",
+    value: "FOOD",
+  },
+  LIFE: {
+    name: "생필품",
+    value: "LIFE",
+  },
+  OTHER: {
+    name: "기타",
+    value: "OTHER",
+  },
+} as const;
+
+export const GROUP_BUY_SORT = {
+  ASC: {
+    name: "오름차순",
+    value: "asc",
+  },
+  DESC: {
+    name: "내림차순",
+    value: "desc",
   },
 } as const;

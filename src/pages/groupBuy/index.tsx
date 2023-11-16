@@ -7,61 +7,74 @@ import FilterModal from "@/components/groupBuy/filterModal";
 import GroupBuyPreview from "@/components/groupBuy/groupBuyPreview";
 import {
   GROUP_BUY_CATEGORIES,
-  GROUP_BUY_FILTERS,
+  GROUP_BUY_SORT,
 } from "@/constants/groupBuy.constants";
 import useOverlay from "@/hooks/useOverlay";
 import { MobileContainer } from "@/styles/commonStyles";
 import {
   GroupBuyCategoriesValues,
-  GroupBuyFiltersValues,
   GroupBuyPreviewType,
-} from "@/types/types";
+  GroupBuySortValues,
+} from "@/types/groupBuy.types";
+
 import { useState } from "react";
 
 const DUMMY_DATA: GroupBuyPreviewType[] = [
   {
     id: 1,
     title: "폴라로이드 카메라 필름 4명 공동구매합니다",
-    max_user: 4,
-    current_user_count: 1,
-    image: "https://placehold.co/100",
-    price_per_user: 900000,
-    enumShare: "SELL",
+    maxUser: 4,
+    currentUserCount: 1,
+    fileUrls: "https://placehold.co/100",
+    perUserPrice: 900000,
+    enumShare: "BUY",
     address: "서울시 강남구",
-    created_at: "Thu, 09 Nov 2023 08:46:13 GMT",
+    createdAt: "2023-11-16T19:47:16.488675",
+    modifiedAt: "2023-11-16T19:47:16.488675",
+    viewCnt: 0,
+    beobJeongDong: "12345",
   },
   {
     id: 2,
     title: "폴라로이드 카메라 필름 4명 공동구매합니다",
-    max_user: 4,
-    current_user_count: 1,
-    image: "https://placehold.co/100",
-    price_per_user: 900000,
-    enumShare: "SELL",
+    maxUser: 4,
+    currentUserCount: 1,
+    fileUrls: "https://placehold.co/100",
+    perUserPrice: 900000,
+    enumShare: "BUY",
     address: "서울시 강남구",
-    created_at: "Thu, 09 Nov 2023 08:46:13 GMT",
+    createdAt: "2023-11-16T19:47:16.488675",
+    modifiedAt: "2023-11-16T19:47:16.488675",
+    viewCnt: 0,
+    beobJeongDong: "12345",
   },
   {
     id: 3,
     title: "폴라로이드 카메라 필름 4명 공동구매합니다",
-    max_user: 4,
-    current_user_count: 1,
-    image: "https://placehold.co/100",
-    price_per_user: 900000,
-    enumShare: "SELL",
+    maxUser: 4,
+    currentUserCount: 1,
+    fileUrls: "https://placehold.co/100",
+    perUserPrice: 900000,
+    enumShare: "BUY",
     address: "서울시 강남구",
-    created_at: "Thu, 09 Nov 2023 08:46:13 GMT",
+    createdAt: "2023-11-16T19:47:16.488675",
+    modifiedAt: "2023-11-16T19:47:16.488675",
+    viewCnt: 0,
+    beobJeongDong: "12345",
   },
   {
     id: 4,
     title: "폴라로이드 카메라 필름 4명 공동구매합니다",
-    max_user: 4,
-    current_user_count: 1,
-    image: "https://placehold.co/100",
-    price_per_user: 900000,
-    enumShare: "SELL",
+    maxUser: 4,
+    currentUserCount: 1,
+    fileUrls: "https://placehold.co/100",
+    perUserPrice: 900000,
+    enumShare: "BUY",
     address: "서울시 강남구",
-    created_at: "Thu, 09 Nov 2023 08:46:13 GMT",
+    createdAt: "2023-11-16T19:47:16.488675",
+    modifiedAt: "2023-11-16T19:47:16.488675",
+    viewCnt: 0,
+    beobJeongDong: "12345",
   },
 ];
 
@@ -72,8 +85,8 @@ const getCategoryName = (category: GroupBuyCategoriesValues) => {
   return foundCategory ? foundCategory.name : "카테고리";
 };
 
-const getFilterName = (filter: GroupBuyFiltersValues) => {
-  const foundFilter = Object.values(GROUP_BUY_FILTERS).find(
+const getFilterName = (filter: GroupBuySortValues) => {
+  const foundFilter = Object.values(GROUP_BUY_SORT).find(
     (c) => c.value === filter,
   );
   return foundFilter ? foundFilter.name : "필터";
@@ -84,8 +97,8 @@ import { Link } from "react-router-dom";
 
 const GroupBuyPage = () => {
   const overlay = useOverlay();
-  const [category, setCategory] = useState<GroupBuyCategoriesValues>("all");
-  const [filter, setFilter] = useState<GroupBuyFiltersValues>("latest");
+  const [category, setCategory] = useState<GroupBuyCategoriesValues>("ALL");
+  const [filter, setFilter] = useState<GroupBuySortValues>("asc");
 
   const openCategoryModal = (
     category: GroupBuyCategoriesValues,
@@ -108,8 +121,8 @@ const GroupBuyPage = () => {
   };
 
   const openFilterModal = (
-    filter: GroupBuyFiltersValues,
-  ): Promise<GroupBuyFiltersValues> => {
+    filter: GroupBuySortValues,
+  ): Promise<GroupBuySortValues> => {
     return new Promise((resolve) => {
       overlay.open(({ close }) => (
         <FilterModal

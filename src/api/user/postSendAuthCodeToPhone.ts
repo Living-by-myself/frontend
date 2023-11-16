@@ -5,8 +5,8 @@ export interface PostSendCodeToPhoneNumberRequest {
   phoneNumber: string;
 }
 
-const PostSendCodeToPhoneNumber = (
+const postSendAuthCodeToPhone = (
   args: PostSendCodeToPhoneNumberRequest,
 ): AxiosPromise<void> => axiosInstance.post("/auth/message", args);
 
-export default PostSendCodeToPhoneNumber;
+export default postSendAuthCodeToPhone;

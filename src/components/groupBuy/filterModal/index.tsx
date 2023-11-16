@@ -1,17 +1,18 @@
 import BaseModal from "@/components/common/baseModal";
 import Button from "@/components/common/button";
-import { GROUP_BUY_FILTERS } from "@/constants/groupBuy.constants";
-import { GroupBuyFiltersValues, ModalCommonProps } from "@/types/types";
+import { GROUP_BUY_SORT } from "@/constants/groupBuy.constants";
+import { ModalCommonProps } from "@/types/types";
 import { useState } from "react";
 import * as S from "./styles";
+import { GroupBuySortValues } from "@/types/groupBuy.types";
 
 interface FilterModalProps extends ModalCommonProps {
-  initFilter: GroupBuyFiltersValues;
-  onConfirm: (filter: GroupBuyFiltersValues) => void;
+  initFilter: GroupBuySortValues;
+  onConfirm: (filter: GroupBuySortValues) => void;
 }
 
 const FilterModal = ({ initFilter, onConfirm, onClose }: FilterModalProps) => {
-  const [filter, setFilter] = useState<GroupBuyFiltersValues>(initFilter);
+  const [filter, setFilter] = useState<GroupBuySortValues>(initFilter);
 
   const handleConfirm = () => {
     onConfirm(filter);
@@ -21,7 +22,7 @@ const FilterModal = ({ initFilter, onConfirm, onClose }: FilterModalProps) => {
     <BaseModal onClose={onClose}>
       <S.Container>
         <S.FilterList>
-          {Object.entries(GROUP_BUY_FILTERS).map(([key, c]) => {
+          {Object.entries(GROUP_BUY_SORT).map(([key, c]) => {
             const { value, name } = c;
             return (
               <S.FilterItem

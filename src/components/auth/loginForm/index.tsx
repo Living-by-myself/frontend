@@ -14,7 +14,7 @@ const schema = z.object({
   username: z.string().min(2, { message: "2자 이상의 아이디를 입력해주세요." }),
   password: z
     .string()
-    .min(6, { message: "6자 이상의 비밀번호를 입력해주세요." }),
+    .min(3, { message: "6자 이상의 비밀번호를 입력해주세요." }),
 });
 
 const LoginForm = () => {
