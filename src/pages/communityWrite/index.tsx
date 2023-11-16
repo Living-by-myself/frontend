@@ -1,10 +1,11 @@
-import CommunityWrite from "@/components/community/write";
+import CommunityWriteForm from "@/components/community/writeForm";
 import { MobileContainer } from "@/styles/commonStyles";
 
 const CommunityWritePage = () => {
   return (
     <MobileContainer>
-      <CommunityWrite />
+      <CommunityWriteForm />
+      {/* <CommunityWrite /> */}
     </MobileContainer>
   );
 };

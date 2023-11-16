@@ -1,13 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
+import { useCommunityWriteStore } from "@/store/useCommunityStore";
 
 const CommunityWriteText = () => {
   const textareaRef1 = useRef<HTMLTextAreaElement | null>(null);
-  const [text1, setText1] = useState("");
+  const title = useCommunityWriteStore((state) => state.title);
+  const body = useCommunityWriteStore((state) => state.body);
 
-  const onChange1 = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText1(e.currentTarget.value);
+  const titleHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     // 첫 번째 textarea 높이 조절
+    useCommunityWriteStore.setState({ title: e.currentTarget.value });
     if (textareaRef1 && textareaRef1.current) {
       textareaRef1.current.style.height = "auto";
       const scrollHeight = textareaRef1.current.scrollHeight;
@@ -16,10 +18,9 @@ const CommunityWriteText = () => {
   };
 
   const textareaRef2 = useRef<HTMLTextAreaElement | null>(null);
-  const [text2, setText2] = useState("");
 
-  const onChange2 = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText2(e.currentTarget.value);
+  const bodyHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    useCommunityWriteStore.setState({ body: e.currentTarget.value });
     // 두 번째 textarea 높이 조절
     if (textareaRef2 && textareaRef2.current) {
       textareaRef2.current.style.height = "auto";
@@ -32,15 +33,15 @@ const CommunityWriteText = () => {
     <S.Container>
       <S.Title
         ref={textareaRef1}
-        value={text1}
-        onChange={onChange1}
+        value={title}
+        onChange={titleHandler}
         placeholder="제목을 입력하세요."
         rows={1}
       />
       <S.Body
         ref={textareaRef2}
-        value={text2}
-        onChange={onChange2}
+        value={body}
+        onChange={bodyHandler}
         placeholder="공유하고 싶은 글을 입력하세요."
         rows={1}
       />
