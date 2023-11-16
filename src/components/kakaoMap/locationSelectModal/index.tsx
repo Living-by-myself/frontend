@@ -5,6 +5,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { ModalCommonProps } from "@/types/types";
 import BaseModal from "@/components/common/baseModal";
 import Button from "@/components/common/button";
+import { getCurrentPosition } from "@/utils/geoLocation";
 
 type Region = {
   address_name: string;
@@ -25,6 +26,16 @@ export type Location = {
   address_name: Region["address_name"];
 } | null;
 
+export type Coord2RegionCodeType = (
+  lng: number,
+  lat: number,
+  callback: (result: Region[], status: "OK" | "ERROR" | "ZERO_RESULT") => void,
+) => void;
+
+export type GeoCoderType = {
+  coord2RegionCode: Coord2RegionCodeType;
+};
+
 interface MapProps extends ModalCommonProps {
   onConfirm: (props: Location) => void;
   initLocation?: {
@@ -40,32 +51,23 @@ function truncateTo6DecimalPlaces(number: number) {
 const LSMap = ({ initLocation, onClose, onConfirm }: MapProps) => {
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
-  const geoCoderRef = useRef<any>(null);
+  const geoCoderRef = useRef<GeoCoderType | null>(null);
   const [isLoading, setLoading] = useState(true);
-  // const [location, setLocation] = useState(
-  //   initLocation || {
-  //     lat: 37.506502,
-  //     lng: 127.053617,
-  //   },
-  // );
   const [result, setResult] = useState<Region | null>(null);
-  // const [isSearching, setSearching] = useState(false);
 
   const [latlng, setLatlng] = useState({
     lat: 37.506502,
     lng: 127.053617,
   });
-  const debouncedLatlng = useDebounce(latlng, 200);
+  const debouncedLatlng = useDebounce(latlng, 100);
 
   useEffect(() => {
     console.log(debouncedLatlng);
     if (!geoCoderRef.current) return;
-    // setSearching(true);
     geoCoderRef.current.coord2RegionCode(
       debouncedLatlng.lng,
       debouncedLatlng.lat,
       (result: Region[], status: "OK" | "ERROR" | "ZERO_RESULT") => {
-        // setSearching(false);
         if (status === window.kakao.maps.services.Status.OK) {
           setResult(result[0]);
           console.log(result);
@@ -103,20 +105,25 @@ const LSMap = ({ initLocation, onClose, onConfirm }: MapProps) => {
             lat: latlng.getLat(),
             lng: latlng.getLng(),
           });
-          // console.log("setLatlng", latlng.getLat(), latlng.getLng());
         },
       );
 
       mapRef.current = kakaoMap;
       geoCoderRef.current = geocoder;
+
       setLoading(false);
+      getCurrentPosition().then((position) => {
+        setLatlng(position);
+        kakaoMap.setCenter(
+          new window.kakao.maps.LatLng(position.lat, position.lng),
+        );
+      });
     });
-  }, [location]);
+  }, [initLocation]);
 
   const handleConfirm = () => {
     if (!result) return;
     const { x, y, code, address_name } = result;
-    // window.alert(`${x}, ${y}, ${code}, ${address_name}`);
     onConfirm({
       lat: y,
       lng: x,
@@ -137,8 +144,6 @@ const LSMap = ({ initLocation, onClose, onConfirm }: MapProps) => {
             </>
           )}
         </S.StMap>
-        {/* <p>{isSearching ? "서칭중" : "서칭완료"}</p>
-      <p>{result && result.address_name + result.code}</p> */}
         <S.ButtonContainer>
           <Button variants="outline" onClick={() => onClose()}>
             닫기
@@ -168,6 +173,7 @@ const LocationSelectModal = ({
   );
 };
 
+// @ts-expect-error: Marker have map props
 const Marker = ({ map }) => {
   const markerRef = useRef(null);
   useEffect(() => {
@@ -184,7 +190,6 @@ const Marker = ({ map }) => {
     });
 
     window.kakao.maps.event.addListener(map, "center_changed", function () {
-      // 지도의 중심좌표를 얻어옵니다
       const latlng = map.getCenter();
       if (!markerRef.current) return;
 
@@ -192,11 +197,13 @@ const Marker = ({ map }) => {
         truncateTo6DecimalPlaces(latlng.getLat()),
         truncateTo6DecimalPlaces(latlng.getLng()),
       );
+      // @ts-expect-error: setPosition is function
       markerRef.current.setPosition(newPosition);
     });
 
     return () => {
       if (markerRef.current) {
+        // @ts-expect-error: setMap is function
         markerRef.current.setMap(null);
       }
     };

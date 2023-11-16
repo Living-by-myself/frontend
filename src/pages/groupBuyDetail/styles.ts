@@ -4,9 +4,12 @@ export const CarouselContainer = styled.div`
   width: 100%;
   max-width: 768px;
   aspect-ratio: 1;
+  z-index: 0;
 `;
 
-export const DetailContainer = styled.div``;
+export const DetailContainer = styled.div`
+  padding-bottom: 20rem;
+`;
 
 export const PriceContainer = styled.div`
   display: flex;

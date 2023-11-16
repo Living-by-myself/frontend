@@ -2,17 +2,16 @@ import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "../shared/PrivateRoute";
 import HomePage from "../pages/home/index";
 import LoginPage from "../pages/login/index";
-import RegisterPage from "../pages/Register/index";
+import RegisterPage from "../pages/register/index";
 import PasswordFindPage from "../pages/password/find/index";
 import PasswordResetPage from "../pages/password/reset/index";
-import UserProfileEditPage from "../pages/userEdit/index";
 
 import RootLayout from "@/components/ui/rootLayout";
 import GroupBuyPage from "../pages/groupBuy/index";
 import GroupBuyDetailPage from "../pages/groupBuyDetail/index";
-import GroupBuyWritePage from "@/pages/groupBuyPay";
 import GroupBuyEditPage from "@/pages/groupBuyEdit";
 import GroupBuyPayPage from "@/pages/groupBuyPay";
+import GroupBuyWritePage from "@/pages/groupBuyWrite";
 
 import CommunityPage from "@/pages/community";
 import CommunityDetailPage from "@/pages/communityDetail";
@@ -21,6 +20,7 @@ import MyPage from "@/pages/mypage";
 import UserUpdateInfoPage from "@/pages/userUpdateInfo";
 import PasswordUpdatePage from "@/pages/passwordUpdate";
 import PointChargePage from "@/pages/pointCharge";
+import SearchPage from "@/pages/search";
 
 const Router = () => {
   return (
@@ -31,7 +31,6 @@ const Router = () => {
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/password-find" element={<PasswordFindPage />} />
         <Route path="/password-reset" element={<PasswordResetPage />} />
-        <Route path="/user-edit" element={<UserProfileEditPage />} />
 
         <Route path="/group-buy" element={<GroupBuyPage />} />
         <Route path="/group-buy/:id" element={<GroupBuyDetailPage />} />
@@ -43,6 +42,8 @@ const Router = () => {
         <Route path="/community" element={<CommunityPage />} />
         <Route path="/community/:id" element={<CommunityDetailPage />} />
         <Route path="/community/write" element={<CommunityWritePage />} />
+
+        <Route path="/search" element={<SearchPage />} />
 
         <Route element={<PrivateRoute />}>
           <Route path="/mypage" element={<MyPage />} />

@@ -2,7 +2,7 @@ import BaseModal from "@/components/common/baseModal";
 import Button from "@/components/common/button";
 import { GROUP_BUY_CATEGORIES } from "@/constants/groupBuy.constants";
 import { GroupBuyCategoriesValues, ModalCommonProps } from "@/types/types";
-import React from "react";
+import { useState } from "react";
 import * as S from "./styles";
 
 interface CategoryModalProps extends ModalCommonProps {
@@ -16,29 +16,37 @@ const CategoryModal = ({
   onClose,
 }: CategoryModalProps) => {
   const [category, setCategory] =
-    React.useState<GroupBuyCategoriesValues>(initCategory);
+    useState<GroupBuyCategoriesValues>(initCategory);
+
+  const handleConfirm = () => {
+    onConfirm(category);
+  };
 
   return (
     <BaseModal onClose={onClose}>
       <S.Container>
-        {Object.entries(GROUP_BUY_CATEGORIES).map(([key, c]) => {
-          const { value, name } = c;
-          return (
-            <div
-              key={key}
-              onClick={() => {
-                setCategory(value);
-              }}
-            >
-              {name}
-              {category === value && "✓"}
-            </div>
-          );
-        })}
-        <Button onClick={() => onConfirm(category)}>확인</Button>
-        <Button variants="outline" onClick={() => onClose()}>
-          닫기
-        </Button>
+        <S.CategoryList>
+          {Object.entries(GROUP_BUY_CATEGORIES).map(([key, c]) => {
+            const { value, name } = c;
+            return (
+              <S.CategoryItem
+                key={key}
+                onClick={() => {
+                  setCategory(value);
+                }}
+                $isChecked={category === value}
+              >
+                {name}
+              </S.CategoryItem>
+            );
+          })}
+        </S.CategoryList>
+        <S.Buttons>
+          <Button onClick={handleConfirm}>확인</Button>
+          <Button variants="outline" onClick={() => onClose()}>
+            닫기
+          </Button>
+        </S.Buttons>
       </S.Container>
     </BaseModal>
   );

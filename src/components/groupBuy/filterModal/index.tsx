@@ -2,7 +2,7 @@ import BaseModal from "@/components/common/baseModal";
 import Button from "@/components/common/button";
 import { GROUP_BUY_FILTERS } from "@/constants/groupBuy.constants";
 import { GroupBuyFiltersValues, ModalCommonProps } from "@/types/types";
-import React from "react";
+import { useState } from "react";
 import * as S from "./styles";
 
 interface FilterModalProps extends ModalCommonProps {
@@ -11,29 +11,37 @@ interface FilterModalProps extends ModalCommonProps {
 }
 
 const FilterModal = ({ initFilter, onConfirm, onClose }: FilterModalProps) => {
-  const [filter, setFilter] = React.useState<GroupBuyFiltersValues>(initFilter);
+  const [filter, setFilter] = useState<GroupBuyFiltersValues>(initFilter);
+
+  const handleConfirm = () => {
+    onConfirm(filter);
+  };
 
   return (
     <BaseModal onClose={onClose}>
       <S.Container>
-        {Object.entries(GROUP_BUY_FILTERS).map(([key, c]) => {
-          const { value, name } = c;
-          return (
-            <div
-              key={key}
-              onClick={() => {
-                setFilter(value);
-              }}
-            >
-              {name}
-              {filter === value && "✓"}
-            </div>
-          );
-        })}
-        <Button onClick={() => onConfirm(filter)}>확인</Button>
-        <Button variants="outline" onClick={() => onClose()}>
-          닫기
-        </Button>
+        <S.FilterList>
+          {Object.entries(GROUP_BUY_FILTERS).map(([key, c]) => {
+            const { value, name } = c;
+            return (
+              <S.FilterItem
+                key={key}
+                onClick={() => {
+                  setFilter(value);
+                }}
+                $isChecked={filter === value}
+              >
+                {name}
+              </S.FilterItem>
+            );
+          })}
+        </S.FilterList>
+        <S.Buttons>
+          <Button onClick={handleConfirm}>확인</Button>
+          <Button variants="outline" onClick={() => onClose()}>
+            닫기
+          </Button>
+        </S.Buttons>
       </S.Container>
     </BaseModal>
   );

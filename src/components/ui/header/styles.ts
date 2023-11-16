@@ -5,7 +5,7 @@ export const Container = styled.div`
 
   align-items: center;
   height: 56px;
-  border: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
   background-color: ${({ theme }) => theme.colors.gray[0]};
 `;
 
@@ -17,6 +17,7 @@ export const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 12px 20px;
+  position: relative;
 `;
 
 export const Nav = styled.nav`
@@ -40,6 +41,8 @@ export const RightMenu = styled.div`
   display: none;
   @media (min-width: 768px) {
     display: flex;
+    gap: 1rem;
+    align-items: center;
   }
 `;
 
@@ -48,4 +51,23 @@ export const MobileRightMenu = styled.div`
   @media (min-width: 768px) {
     display: none;
   }
+`;
+
+export const SearchFullContainer = styled.div`
+  background-color: ${({ theme }) => theme.colors.gray[0]};
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 3px);
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  top: 0;
+  left: 0;
+  padding: 2rem;
+`;
+
+export const LogoContainer = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 `;
