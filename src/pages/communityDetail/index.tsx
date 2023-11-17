@@ -7,6 +7,7 @@ import PostDetailUser from "@/components/community/postDetail/user";
 import { MobileContainer } from "@/styles/commonStyles";
 import styled from "styled-components";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const dummy = {
   id: 6,
@@ -30,6 +31,8 @@ export const userInfo = {
 
 const CommunityDetailPage = () => {
   // 리액트 쿼리활용 아이디값 기준의 값을 GET!
+  const param = useParams();
+  console.log(param);
   const [post] = useState<typeof dummy>(dummy);
 
   const getPosts = async () => {

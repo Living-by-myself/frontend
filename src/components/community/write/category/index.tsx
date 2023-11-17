@@ -1,44 +1,48 @@
 import RoundButton from "@/components/common/roundButton";
-import { useCommunityWriteStore } from "@/store/useCommunityStore";
+import { CommunityWriteFormData } from "@/types/form.types";
+import { UseFormSetValue, UseFormWatch } from "react-hook-form";
 import styled from "styled-components";
 
-const CommunityWriteCategory = () => {
-  const category = useCommunityWriteStore((state) => state.category);
-  const clickCategory = (value: string) => {
-    useCommunityWriteStore.setState({ category: value });
-  };
+interface CommunityWriteCategoryProps {
+  watch: UseFormWatch<CommunityWriteFormData>;
+  setValue: UseFormSetValue<CommunityWriteFormData>;
+}
 
+const CommunityWriteCategory = ({
+  watch,
+  setValue,
+}: CommunityWriteCategoryProps) => {
   return (
     <S.Container>
       <RoundButton
         onClick={() => {
-          clickCategory("clean");
+          setValue("category", "clean");
         }}
-        isCheck={category === "clean" && true}
+        isCheck={watch("category") === "clean" && true}
       >
         청소
       </RoundButton>
       <RoundButton
         onClick={() => {
-          clickCategory("interior");
+          setValue("category", "interior");
         }}
-        isCheck={category === "interior" && true}
+        isCheck={watch("category") === "interior" && true}
       >
         인테리어
       </RoundButton>
       <RoundButton
         onClick={() => {
-          clickCategory("food");
+          setValue("category", "cook");
         }}
-        isCheck={category === "food" && true}
+        isCheck={watch("category") === "cook" && true}
       >
         요리
       </RoundButton>
       <RoundButton
         onClick={() => {
-          clickCategory("etc");
+          setValue("category", "free");
         }}
-        isCheck={category === "etc" && true}
+        isCheck={watch("category") === "free" && true}
       >
         자유
       </RoundButton>

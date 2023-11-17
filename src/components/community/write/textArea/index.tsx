@@ -1,15 +1,29 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import { useCommunityWriteStore } from "@/store/useCommunityStore";
+import { UseFormSetValue, UseFormWatch } from "react-hook-form";
+import { CommunityWriteFormData } from "@/types/form.types";
 
-const CommunityWriteText = () => {
+interface CommunityWriteTextProps {
+  watch: UseFormWatch<CommunityWriteFormData>;
+  setValue: UseFormSetValue<CommunityWriteFormData>;
+  // errors: FieldErrors<CommunityWriteFormData>;
+}
+
+const CommunityWriteText = ({
+  watch,
+  setValue, // errors,
+}: CommunityWriteTextProps) => {
+  // const { control } = useFormContext();
   const textareaRef1 = useRef<HTMLTextAreaElement | null>(null);
-  const title = useCommunityWriteStore((state) => state.title);
-  const body = useCommunityWriteStore((state) => state.body);
 
   const titleHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     // 첫 번째 textarea 높이 조절
-    useCommunityWriteStore.setState({ title: e.currentTarget.value });
+
+    if (e.currentTarget.value.length > 20) {
+      alert("제목은 20자 이내로 입력해주세요.");
+      return;
+    }
+    setValue("title", e.currentTarget.value);
     if (textareaRef1 && textareaRef1.current) {
       textareaRef1.current.style.height = "auto";
       const scrollHeight = textareaRef1.current.scrollHeight;
@@ -20,7 +34,7 @@ const CommunityWriteText = () => {
   const textareaRef2 = useRef<HTMLTextAreaElement | null>(null);
 
   const bodyHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    useCommunityWriteStore.setState({ body: e.currentTarget.value });
+    setValue("description", e.currentTarget.value);
     // 두 번째 textarea 높이 조절
     if (textareaRef2 && textareaRef2.current) {
       textareaRef2.current.style.height = "auto";
@@ -32,18 +46,21 @@ const CommunityWriteText = () => {
   return (
     <S.Container>
       <S.Title
-        ref={textareaRef1}
-        value={title}
+        value={watch("title")}
         onChange={titleHandler}
         placeholder="제목을 입력하세요."
         rows={1}
+        ref={textareaRef1}
       />
+      {/* {errors.description?.message && (
+        <S.ErrorMessage>{errors.description?.message}</S.ErrorMessage>
+      )} */}
       <S.Body
-        ref={textareaRef2}
-        value={body}
+        value={watch("description")}
         onChange={bodyHandler}
         placeholder="공유하고 싶은 글을 입력하세요."
         rows={1}
+        ref={textareaRef2}
       />
     </S.Container>
   );
@@ -52,12 +69,13 @@ const CommunityWriteText = () => {
 export default CommunityWriteText;
 
 const S = {
+  ErrorMessage: styled.p``,
   Container: styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 12px 0;
-
+    /* padding: 12px 0; */
+    padding: 0 1rem;
     gap: 8px;
     line-height: normal;
   `,
