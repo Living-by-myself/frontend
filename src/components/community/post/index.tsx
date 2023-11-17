@@ -58,7 +58,6 @@ const S = {
   Container: styled.div`
     padding: 14px 0 16px;
     width: 100%;
-    background-color: red;
   `,
   CategoryContainer: styled.div`
     font-size: ${({ theme }) => theme.fontSizes.xxs};

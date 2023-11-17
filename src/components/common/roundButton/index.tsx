@@ -5,11 +5,11 @@ interface RoundButtonProps {
   children: string;
   onClick?: () => void;
   isCheck?: boolean;
+  value?: string;
 }
 
 // isCheck = true면 초록색, false면 회색
 const RoundButton = ({ children, onClick, isCheck }: RoundButtonProps) => {
-  console.log(isCheck);
   return (
     <S.Button onClick={onClick} $isCheck={isCheck}>
       {children}

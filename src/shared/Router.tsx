@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "../shared/PrivateRoute";
 import HomePage from "../pages/home/index";
 import LoginPage from "../pages/login/index";
-import RegisterPage from "../pages/register/index";
+import RegisterPage from "@/pages/Register";
 import PasswordFindPage from "../pages/password/find/index";
 import PasswordResetPage from "../pages/password/reset/index";
 
@@ -20,6 +20,12 @@ import MyPage from "@/pages/mypage";
 import UserUpdateInfoPage from "@/pages/userUpdateInfo";
 import PasswordUpdatePage from "@/pages/passwordUpdate";
 import PointChargePage from "@/pages/pointCharge";
+import MyPageBadge from "@/pages/mypageBadge";
+import MyPagePost from "@/pages/myPagePost";
+import MyPageGroupBuy from "@/pages/mypageGroupBuy";
+import ChattingPage from "@/pages/\bchatting";
+import ChattingDetailPage from "@/pages/chattingDetail";
+import ChattingDetailEdit from "@/pages/chattingDetailEdit";
 import SearchPage from "@/pages/search";
 
 const Router = () => {
@@ -43,17 +49,23 @@ const Router = () => {
         <Route path="/community/:id" element={<CommunityDetailPage />} />
         <Route path="/community/write" element={<CommunityWritePage />} />
 
+        <Route path="/chat" element={<ChattingPage />} />
+        <Route path="/chat/:id" element={<ChattingDetailPage />} />
+        <Route path="/chat/:id/edit" element={<ChattingDetailEdit />} />
         <Route path="/search" element={<SearchPage />} />
 
         <Route element={<PrivateRoute />}>
+          {/* 마이페이지 등... 로그인 후 사용 가능한 페이지들... */}
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage/badge" element={<MyPageBadge />} />
+          <Route path="/mypage/post" element={<MyPagePost />} />
+          <Route path="/mypage/group-buy" element={<MyPageGroupBuy />} />
           <Route path="/mypage/update" element={<UserUpdateInfoPage />} />
           <Route
             path="/mypage/password-update"
             element={<PasswordUpdatePage />}
           />
           <Route path="/mypage/point-charge" element={<PointChargePage />} />
-          {/* 마이페이지 등... 로그인 후 사용 가능한 페이지들... */}
         </Route>
       </Route>
     </Routes>
