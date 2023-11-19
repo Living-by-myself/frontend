@@ -6,6 +6,7 @@ import PostDetailBody from "@/components/community/postDetail/postBody";
 import PostDetailUser from "@/components/community/postDetail/user";
 import { MobileContainer } from "@/styles/commonStyles";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const dummy = {
@@ -28,55 +29,67 @@ export const userInfo = {
   getCreatedAtAsString: "2023-11-08 14:56:26",
 };
 
+export interface PostDetailProps {
+  id: number;
+  viewCnt: number;
+  title: string;
+  description: string;
+  category: string;
+  userId: number;
+  userNickname: string;
+  getCreatedAtAsString: string;
+  commentCnt: number;
+  likeCnt: number;
+  fileUrls: string | null;
+}
+
 const CommunityDetailPage = () => {
   // 리액트 쿼리활용 아이디값 기준의 값을 GET!
-  const [post] = useState<typeof dummy>(dummy);
+  const param = useParams();
+  const id = param.id;
 
-  const getPosts = async () => {
-    // const result = axios.get("https://tracelover.shop/home/communities", {
-    //   withCredentials: true,
-    // });
-    // console.log(result);
+  const [post, setPost] = useState<PostDetailProps>();
 
-    axios({
-      method: "get",
-      url: "https://tracelover.shop/home/communities/1",
-
-      headers: {
-        "Content-Type": "application/json",
-
-        // 다른 필요한 헤더들...
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        // 응답 처리...
-      })
-      .catch((error) => {
-        // 오류 처리...
-        console.log(error);
+  const getPostDetail = async (postId: string | undefined) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: `https://tracelover.shop/home/communities/${postId}`,
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${localStorage.getItem("accessToken")}`,
+        },
       });
+
+      if (response.status === 403) {
+        throw new Error("401");
+      }
+      if (!response) return null;
+      console.log(response.data);
+      setPost(response.data as PostDetailProps);
+    } catch (error) {
+      throw new Error("실패");
+    }
   };
 
   useEffect(() => {
-    getPosts();
+    getPostDetail(id);
   }, []);
-
-  // 동일하게 유저 정보를 따로 받던가 아니면 아래와 같이 받아서 사용하면 될듯
 
   return (
     <MobileContainer>
       <S.Container>
-        <S.CategoryContainer>{post.category} 인기글</S.CategoryContainer>
+        <S.CategoryContainer> 인기글</S.CategoryContainer>
 
         {/* 유저정보 컴포넌트 */}
         <PostDetailUser
-          userId={post.userId}
-          getCreatedAtAsString={post.getCreatedAtAsString}
+          userId={post?.userId}
+          getCreatedAtAsString={post?.getCreatedAtAsString}
         />
 
         {/* 게시글 본문 컴포넌트 */}
-        <PostDetailBody />
+        <PostDetailBody post={post} />
 
         {/* 좋아요 버튼 컴포넌트 */}
         <PostDetailLikes />

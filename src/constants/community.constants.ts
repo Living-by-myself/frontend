@@ -7,13 +7,13 @@ export const COMMUNITY_CATEGORIES = {
     name: "청소",
     value: "clean",
   },
-  FOOD: {
+  COOK: {
     name: "음식",
-    value: "food",
+    value: "cook",
   },
-  ETC: {
+  FREE: {
     name: "기타",
-    value: "etc",
+    value: "free",
   },
 } as const;
 

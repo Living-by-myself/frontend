@@ -1,6 +1,6 @@
 import Icon from "@/components/common/icon";
-import { useCommunityWriteStore } from "@/store/useCommunityStore";
-import { useRef, useState } from "react";
+
+import { useRef } from "react";
 import styled from "styled-components";
 
 const CommunityWriteImage = () => {
@@ -8,7 +8,6 @@ const CommunityWriteImage = () => {
   // const [img, setImg] = useState<File[] | null>(null)
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const file = useCommunityWriteStore((state) => state.file);
 
   return (
     <S.Container>

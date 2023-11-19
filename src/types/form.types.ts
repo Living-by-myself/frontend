@@ -28,3 +28,7 @@ export interface CommunityWriteFormData {
   images: FileList;
   category: string;
 }
+
+export interface ChatFormData {
+  message: string;
+}

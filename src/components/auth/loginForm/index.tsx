@@ -34,6 +34,8 @@ const LoginForm = () => {
         password: data.password,
       });
       console.log("응답:", res);
+      console.log(res.data.atk);
+      localStorage.setItem("accessToken", res.data.atk);
     } catch (e) {
       console.log("에러:", e);
     }

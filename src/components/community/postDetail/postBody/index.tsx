@@ -1,24 +1,31 @@
 import Icon from "@/components/common/icon";
+import { PostDetailProps } from "@/pages/communityDetail";
+
 import styled from "styled-components";
 
-const PostDetailBody = () => {
+interface PostDetailBodyProps {
+  post: PostDetailProps;
+}
+
+const PostDetailBody = ({ post }: PostDetailBodyProps) => {
   return (
     <>
       <S.Container>
-        <S.Title>제목영역입니다.</S.Title>
-        <S.Body>본문내용입니다.</S.Body>
+        <S.Title>{post?.title}</S.Title>
+        <S.Body>{post?.description}</S.Body>
       </S.Container>
 
-      <S.ImageBox>
-        <S.Img
-          src="https://tracelover.s3.ap-northeast-2.amazonaws.com/b82b98c4-5b30-4a5d-9019-0ff0372ea0c9test1.png"
-          alt=""
-        />
-      </S.ImageBox>
+      {post?.fileUrls ? (
+        <S.ImageBox>
+          <S.Img src={post.fileUrls} alt="이미지" />
+        </S.ImageBox>
+      ) : (
+        <> </>
+      )}
 
       <S.View>
         <Icon name="eye" size={"12"} />
-        000명이 봤어요
+        {post?.viewCnt}명이 봤어요
       </S.View>
     </>
   );

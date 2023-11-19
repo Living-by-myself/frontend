@@ -23,7 +23,7 @@ import PointChargePage from "@/pages/pointCharge";
 import MyPageBadge from "@/pages/mypageBadge";
 import MyPagePost from "@/pages/myPagePost";
 import MyPageGroupBuy from "@/pages/mypageGroupBuy";
-import ChattingPage from "@/pages/\bchatting";
+import ChattingPage from "@/pages/chatting";
 import ChattingDetailPage from "@/pages/chattingDetail";
 import ChattingDetailEdit from "@/pages/chattingDetailEdit";
 import SearchPage from "@/pages/search";

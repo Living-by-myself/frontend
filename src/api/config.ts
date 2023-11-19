@@ -11,7 +11,7 @@ const BASE_URL = `${
 }/home`;
 
 const COMMON_HEADERS: CreateAxiosDefaults = {
-  baseURL: BASE_URL,
+  baseURL: "https://tracelover.shop",
   timeout: 5000,
 };
 

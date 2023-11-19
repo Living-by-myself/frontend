@@ -1,4 +1,4 @@
-import { AxiosPromise } from "axios";
+import axios, { AxiosPromise } from "axios";
 import axiosInstance from "../config";
 
 export interface LoginRequest {
@@ -12,6 +12,6 @@ export interface LoginResponse {
 }
 
 const postLogin = (args: LoginRequest): AxiosPromise<LoginResponse> =>
-  axiosInstance.post("/users/login", args);
+  axios.post("https://tracelover.shop/home/users/login", args);
 
 export default postLogin;
