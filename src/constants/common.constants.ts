@@ -72,4 +72,10 @@ export const NAV_LINKS = [
     href: "/community",
     icon: "laugh",
   },
+  {
+    id: 4,
+    name: "마이페이지",
+    href: "/mypage",
+    icon: "user-circle-2",
+  },
 ] as const;

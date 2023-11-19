@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   border-right: 1px solid ${({ theme }) => theme.colors.gray[300]};
   height: 100%;
-  width: 200px;
+  width: 240px;
   background-color: ${({ theme }) => theme.colors.gray[0]};
   padding: 2rem;
   display: flex;
@@ -38,4 +38,8 @@ export const Bottom = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+
+export const ProfileContainer = styled.div`
+  margin-top: 2rem;
 `;

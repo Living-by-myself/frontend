@@ -1,24 +1,48 @@
+import { UserProfile } from "@/types/types";
 import { create } from "zustand";
-
-type User = {
-  username: string;
-  profileImage: string;
-  nickname: string;
-  address: string;
-};
+import { devtools } from "zustand/middleware";
 
 interface UserStore {
-  user: User | null;
+  profile: UserProfile | null;
   token: string | null;
-  setUser: (user: User) => void;
+  setProfile: (user: UserProfile) => void;
+  setToken: (token: string) => void;
+  isLogged: boolean;
+  clearToken: () => void;
   logout: () => void;
 }
 
-const useUserStore = create<UserStore>((set) => ({
-  user: null,
+const initValue = {
+  profile: {
+    nickname: "김철수",
+    profileImage: "https://picsum.photos/100",
+    level: 10,
+    address: "서울 강남구",
+    beobJeongDong: "11111",
+    cash: 12345,
+  },
+  token: "12345",
+  isLogged: true,
+};
+
+const initValue2 = {
+  profile: null,
   token: null,
-  setUser: (user) => set({ user }),
-  logout: () => set({ user: null }),
-}));
+  isLogged: false,
+};
+
+const useUserStore = create(
+  devtools<UserStore>((set) => ({
+    ...initValue2,
+    setProfile: (user) => set({ profile: user }),
+    setToken: (token) => set({ token }),
+    clearToken: () => set({ token: null }),
+    logout: () => set({ profile: null, token: null }),
+  })),
+);
+
+useUserStore.subscribe((state) => {
+  state.isLogged = !!state.token;
+});
 
 export default useUserStore;

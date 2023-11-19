@@ -9,11 +9,11 @@ export interface SignupRequest {
 }
 
 export interface SignupResponse {
-  atk: string;
-  rtk: string;
+  msg: string;
+  statusCode: number;
 }
 
-const postLogin = (args: SignupRequest): AxiosPromise<SignupResponse> =>
-  axiosInstance.post("/users/login", args);
+const postSignup = (args: SignupRequest): AxiosPromise<SignupResponse> =>
+  axiosInstance.post("/users/signup", args);
 
-export default postLogin;
+export default postSignup;

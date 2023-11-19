@@ -17,3 +17,10 @@ export const validateUrl = (url: string) => {
   );
   return urlRegex.test(url);
 };
+
+export const getImageUrls = (fileUrls: string | null) => {
+  if (!fileUrls) return [];
+  return fileUrls.split(",");
+};
+
+export const getWonString = (price: number) => price.toLocaleString("ko-KR");

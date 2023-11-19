@@ -7,61 +7,129 @@ import FilterModal from "@/components/groupBuy/filterModal";
 import GroupBuyPreview from "@/components/groupBuy/groupBuyPreview";
 import {
   GROUP_BUY_CATEGORIES,
-  GROUP_BUY_FILTERS,
+  GROUP_BUY_SORT,
 } from "@/constants/groupBuy.constants";
 import useOverlay from "@/hooks/useOverlay";
+import useUserStore from "@/store/useUserStore";
 import { MobileContainer } from "@/styles/commonStyles";
 import {
   GroupBuyCategoriesValues,
-  GroupBuyFiltersValues,
   GroupBuyPreviewType,
-} from "@/types/types";
-import { useState } from "react";
+  GroupBuySortValues,
+} from "@/types/groupBuy.types";
 
 const DUMMY_DATA: GroupBuyPreviewType[] = [
   {
     id: 1,
     title: "폴라로이드 카메라 필름 4명 공동구매합니다",
-    max_user: 4,
-    current_user_count: 1,
-    image: "https://placehold.co/100",
-    price_per_user: 900000,
-    enumShare: "SELL",
+    maxUser: 4,
+    currentUserCount: 1,
+    fileUrls: "https://placehold.co/100",
+    perUserPrice: 900000,
+    enumShare: "BUY",
     address: "서울시 강남구",
-    created_at: "Thu, 09 Nov 2023 08:46:13 GMT",
+    createdAt: "2023-11-16T19:47:16.488675",
+    modifiedAt: "2023-11-16T19:47:16.488675",
+    viewCnt: 0,
+    beobJeongDong: "12345",
   },
   {
     id: 2,
     title: "폴라로이드 카메라 필름 4명 공동구매합니다",
-    max_user: 4,
-    current_user_count: 1,
-    image: "https://placehold.co/100",
-    price_per_user: 900000,
-    enumShare: "SELL",
+    maxUser: 4,
+    currentUserCount: 1,
+    fileUrls: "https://placehold.co/100",
+    perUserPrice: 900000,
+    enumShare: "BUY",
     address: "서울시 강남구",
-    created_at: "Thu, 09 Nov 2023 08:46:13 GMT",
+    createdAt: "2023-11-16T19:47:16.488675",
+    modifiedAt: "2023-11-16T19:47:16.488675",
+    viewCnt: 0,
+    beobJeongDong: "12345",
   },
   {
     id: 3,
     title: "폴라로이드 카메라 필름 4명 공동구매합니다",
-    max_user: 4,
-    current_user_count: 1,
-    image: "https://placehold.co/100",
-    price_per_user: 900000,
-    enumShare: "SELL",
+    maxUser: 4,
+    currentUserCount: 1,
+    fileUrls: "https://placehold.co/100",
+    perUserPrice: 900000,
+    enumShare: "BUY",
     address: "서울시 강남구",
-    created_at: "Thu, 09 Nov 2023 08:46:13 GMT",
+    createdAt: "2023-11-16T19:47:16.488675",
+    modifiedAt: "2023-11-16T19:47:16.488675",
+    viewCnt: 0,
+    beobJeongDong: "12345",
   },
   {
     id: 4,
     title: "폴라로이드 카메라 필름 4명 공동구매합니다",
-    max_user: 4,
-    current_user_count: 1,
-    image: "https://placehold.co/100",
-    price_per_user: 900000,
-    enumShare: "SELL",
+    maxUser: 4,
+    currentUserCount: 1,
+    fileUrls: "https://placehold.co/100",
+    perUserPrice: 900000,
+    enumShare: "BUY",
     address: "서울시 강남구",
-    created_at: "Thu, 09 Nov 2023 08:46:13 GMT",
+    createdAt: "2023-11-16T19:47:16.488675",
+    modifiedAt: "2023-11-16T19:47:16.488675",
+    viewCnt: 0,
+    beobJeongDong: "12345",
+  },
+  {
+    id: 5,
+    title: "폴라로이드 카메라 필름 4명 공동구매합니다",
+    maxUser: 4,
+    currentUserCount: 1,
+    fileUrls: "https://placehold.co/100",
+    perUserPrice: 900000,
+    enumShare: "BUY",
+    address: "서울시 강남구",
+    createdAt: "2023-11-16T19:47:16.488675",
+    modifiedAt: "2023-11-16T19:47:16.488675",
+    viewCnt: 0,
+    beobJeongDong: "12345",
+  },
+  {
+    id: 6,
+    title: "폴라로이드 카메라 필름 4명 공동구매합니다",
+    maxUser: 4,
+    currentUserCount: 1,
+    fileUrls: "https://placehold.co/100",
+    perUserPrice: 900000,
+    enumShare: "BUY",
+    address: "서울시 강남구",
+    createdAt: "2023-11-16T19:47:16.488675",
+    modifiedAt: "2023-11-16T19:47:16.488675",
+    viewCnt: 0,
+    beobJeongDong: "12345",
+  },
+  {
+    id: 7,
+    title: "폴라로이드 카메라 필름 4명 공동구매합니다",
+    maxUser: 4,
+    currentUserCount: 1,
+    fileUrls: "https://placehold.co/100",
+    perUserPrice: 900000,
+    enumShare: "BUY",
+    address: "서울시 강남구",
+    createdAt: "2023-11-16T19:47:16.488675",
+    modifiedAt: "2023-11-16T19:47:16.488675",
+    viewCnt: 0,
+    beobJeongDong: "12345",
+  },
+  {
+    id: 8,
+    title: "폴라로이드 카메라 필름 4명 공동구매합니다",
+    maxUser: 4,
+    currentUserCount: 1,
+    fileUrls: "https://placehold.co/100",
+    perUserPrice: 900000,
+    enumShare: "BUY",
+    address: "서울시 강남구",
+    createdAt: "2023-11-16T19:47:16.488675",
+    modifiedAt: "2023-11-16T19:47:16.488675",
+    viewCnt: 0,
+    beobJeongDong: "12345",
   },
 ];
 
@@ -72,20 +140,38 @@ const getCategoryName = (category: GroupBuyCategoriesValues) => {
   return foundCategory ? foundCategory.name : "카테고리";
 };
 
-const getFilterName = (filter: GroupBuyFiltersValues) => {
-  const foundFilter = Object.values(GROUP_BUY_FILTERS).find(
+const getFilterName = (filter: GroupBuySortValues) => {
+  const foundFilter = Object.values(GROUP_BUY_SORT).find(
     (c) => c.value === filter,
   );
   return foundFilter ? foundFilter.name : "필터";
 };
 
 import { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+
+const validateCategory = (category: string | null): boolean => {
+  if (!category) return false;
+  return Object.values(GROUP_BUY_CATEGORIES).some((c) => c.value === category);
+};
+
+const validateFilter = (filter: string | null): boolean => {
+  if (!filter) return false;
+  return Object.values(GROUP_BUY_SORT).some((c) => c.value === filter);
+};
 
 const GroupBuyPage = () => {
   const overlay = useOverlay();
-  const [category, setCategory] = useState<GroupBuyCategoriesValues>("all");
-  const [filter, setFilter] = useState<GroupBuyFiltersValues>("latest");
+  // const [category, setCategory] = useState<GroupBuyCategoriesValues>("ALL");
+  // const [filter, setFilter] = useState<GroupBuySortValues>("asc");
+  const { profile } = useUserStore();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const category = validateCategory(searchParams.get("category"))
+    ? (searchParams.get("category") as GroupBuyCategoriesValues)
+    : "ALL";
+  const filter = validateFilter(searchParams.get("filter"))
+    ? (searchParams.get("filter") as GroupBuySortValues)
+    : "asc";
 
   const openCategoryModal = (
     category: GroupBuyCategoriesValues,
@@ -108,8 +194,8 @@ const GroupBuyPage = () => {
   };
 
   const openFilterModal = (
-    filter: GroupBuyFiltersValues,
-  ): Promise<GroupBuyFiltersValues> => {
+    filter: GroupBuySortValues,
+  ): Promise<GroupBuySortValues> => {
     return new Promise((resolve) => {
       overlay.open(({ close }) => (
         <FilterModal
@@ -132,21 +218,29 @@ const GroupBuyPage = () => {
 
   const handleOpenCategoryModal = async () => {
     const confirm = await openCategoryModal(category);
-    setCategory(confirm);
+    setSearchParams((prev) => {
+      prev.set("category", confirm);
+      return prev;
+    });
+    // setCategory(confirm);
   };
 
   const handleOpenFilterModal = async () => {
     const confirm = await openFilterModal(filter);
-    setFilter(confirm);
+    setSearchParams((prev) => {
+      prev.set("filter", confirm);
+      return prev;
+    });
+    // setFilter(confirm);
   };
 
   return (
     <MobileContainer>
       <div>
         <Title level={1} style={{ textAlign: "center" }}>
-          공동구매
+          {profile?.address}
         </Title>
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
           <Button
             variants="outline"
             size="sm"
@@ -159,11 +253,18 @@ const GroupBuyPage = () => {
           </Button>
         </div>
       </div>
-      <div>
+      <div style={{ margin: "1rem 0" }}>
         <Checkbox id="toggleOnlySell" />
         <Label htmlFor="toggleOnlySell">모집중만 보기</Label>
       </div>
-      <ul style={{ display: "flex", flexDirection: "column" }}>
+      <ul
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          maxWidth: "500px",
+        }}
+      >
         {DUMMY_DATA.map((data) => {
           return (
             <li key={data.id} style={{ borderBottom: "1px solid #eee" }}>

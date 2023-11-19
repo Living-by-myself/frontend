@@ -14,14 +14,13 @@ export default defineConfig({
     },
   },
   plugins: [react(), mkcert()],
-  // server: {
-  //   proxy: {
-  //     "/api": {
-  //       target: "https://tracelover.shop",
-  //       changeOrigin: true,
-  //       secure: false,
-  //       rewrite: (path) => path.replace(/^\/api/, ""),
-  //     },
-  //   },
-  // },
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://tracelover.shop",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
 });

@@ -9,7 +9,7 @@ interface LinkProp extends RLinkProps {
 
 const Link = ({ size = "md", children, bold = false, ...props }: LinkProp) => {
   return (
-    <S.Link size={size} bold={bold} {...props}>
+    <S.Link size={size} $bold={bold} {...props}>
       {children}
     </S.Link>
   );

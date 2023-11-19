@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import InputImages from "@/components/common/inputImages";
 import { GroupBuyFormData } from "@/types/form.types";
 import { validateUrl } from "@/utils/string";
+import postGroupBuyPost from "@/api/groupBuy/postGroupBuyPost";
 
 const schema = z
   .object({
@@ -45,6 +46,7 @@ const schema = z
       .min(10, { message: "10자 이상의 설명을 입력해주세요." }),
     images: z.custom<FileList>(),
     enumShare: z.enum(["BUY", "SHARE"]),
+    enumCategory: z.enum(["FOOD", "LIFE", "OTHER"]),
   })
   .refine(
     (data) => {
@@ -72,6 +74,7 @@ const GroupBuyWriteForm = () => {
     defaultValues: {
       enumShare: "BUY",
       maxUsers: 1,
+      enumCategory: "FOOD",
     },
   });
 
@@ -102,9 +105,40 @@ const GroupBuyWriteForm = () => {
     console.log(location);
   };
 
+  const onSubmit = handleSubmit(async (data: GroupBuyFormData) => {
+    const form = new FormData();
+    const requestDto = {
+      title: data.title,
+      description: data.description,
+      itemLink: data.itemLink,
+      maxUser: data.maxUsers,
+      perUserPrice: data.price,
+      enumShare: data.enumShare,
+      enumCategory: data.enumCategory,
+      address: data.location?.address_name,
+      beobJeongDong: data.location?.code,
+      lat: data.location?.lat,
+      lng: data.location?.lng,
+    };
+
+    form.append("requestDto", JSON.stringify(requestDto));
+
+    for (let i = 0; i < data.images.length; i++) {
+      form.append("file", data.images[i]);
+    }
+
+    try {
+      await postGroupBuyPost(form);
+      alert("글 등록이 완료되었습니다.");
+    } catch (e) {
+      console.log(e);
+      alert("글 등록에 실패하였습니다.");
+    }
+  });
+
   return (
     <S.Container>
-      <form onSubmit={handleSubmit((d) => console.log(d))}>
+      <form onSubmit={onSubmit}>
         <S.FormInner>
           <S.FormCol>
             <InputImages
@@ -124,6 +158,50 @@ const GroupBuyWriteForm = () => {
               placeholder="공동구매 글 제목"
               id="title"
             />
+            <S.RadioWrapper>
+              <input
+                type="radio"
+                id="categoryALL"
+                value="FOOD"
+                {...register("enumCategory")}
+                hidden
+              />
+              <S.RadioButtonLabel
+                htmlFor="categoryALL"
+                $checked={watch("enumCategory") === "FOOD"}
+                tabIndex={0}
+              >
+                FOOD
+              </S.RadioButtonLabel>
+              <input
+                type="radio"
+                id="categoryLIFE"
+                value="LIFE"
+                {...register("enumCategory")}
+                hidden
+              />
+              <S.RadioButtonLabel
+                htmlFor="categoryLIFE"
+                $checked={watch("enumCategory") === "LIFE"}
+                tabIndex={0}
+              >
+                LIFE
+              </S.RadioButtonLabel>
+              <input
+                type="radio"
+                id="categoryOTHER"
+                value="OTHER"
+                {...register("enumCategory")}
+                hidden
+              />
+              <S.RadioButtonLabel
+                htmlFor="categoryOTHER"
+                $checked={watch("enumCategory") === "OTHER"}
+                tabIndex={0}
+              >
+                OTHER
+              </S.RadioButtonLabel>
+            </S.RadioWrapper>
             <ErrorMessage>{errors.title?.message}</ErrorMessage>
           </S.FormRow>
           <S.FormRow>

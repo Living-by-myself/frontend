@@ -3,9 +3,10 @@ import Icon from "@/components/common/icon";
 import Title from "@/components/common/title";
 import Typography from "@/components/common/typography";
 import theme from "@/styles/theme";
-import { GroupBuyPreviewType } from "@/types/types";
 import * as S from "./styles";
 import { getRelativeTimeString } from "@/utils/date";
+import { GroupBuyPreviewType } from "@/types/groupBuy.types";
+import { getImageUrls } from "@/utils/string";
 
 interface GroupBuyPreviewProps {
   data: GroupBuyPreviewType;
@@ -14,32 +15,35 @@ interface GroupBuyPreviewProps {
 const GroupBuyPreview = ({ data }: GroupBuyPreviewProps) => {
   const {
     title,
-    max_user,
-    current_user_count,
-    image,
-    price_per_user,
+    maxUser,
+    currentUserCount,
+    createdAt,
+    fileUrls,
+    perUserPrice,
     enumShare,
     address,
-    created_at,
   } = data;
+
+  const firstImage = getImageUrls(fileUrls)[0];
+
   return (
     <S.Container>
-      <S.PreviewImage src={image} width={100} height={100} />
+      <S.PreviewImage src={firstImage} width={100} height={100} />
       <S.PreviewInfo>
         <Title level={4}>{title}</Title>
         <Typography variants="caption1">
-          {address} · {getRelativeTimeString(created_at)}
+          {address} · {getRelativeTimeString(createdAt)}
         </Typography>
         <S.PreviewSellInfo>
           <Badge variant="secondary">
-            {enumShare === "SELL" ? "모집중" : "나눔중"}
+            {enumShare === "BUY" ? "모집중" : "나눔중"}
           </Badge>
-          <Typography bold>{price_per_user.toLocaleString()}원</Typography>
+          <Typography bold>{perUserPrice.toLocaleString()}원</Typography>
         </S.PreviewSellInfo>
         <S.PreviewParticipants>
           <Icon name="users" color={theme.colors.gray[500]} size={20} />
           <Typography variants="caption1">
-            {current_user_count}/{max_user}명
+            {currentUserCount}/{maxUser}명
           </Typography>
         </S.PreviewParticipants>
       </S.PreviewInfo>

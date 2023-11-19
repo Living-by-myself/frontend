@@ -1,12 +1,9 @@
 import Icon from "@/components/common/icon";
-import { UserProps } from "@/pages/mypage";
+import useUserStore from "@/store/useUserStore";
 import styled from "styled-components";
 
-export interface MyPageUserBasicInfoProps {
-  user: UserProps | undefined;
-}
-
-const MyPageUserBasicInfo = ({ user }: MyPageUserBasicInfoProps) => {
+const MyPageUserBasicInfo = () => {
+  const { profile } = useUserStore();
   return (
     <S.Container>
       <S.ProfileImageBox>
@@ -15,9 +12,9 @@ const MyPageUserBasicInfo = ({ user }: MyPageUserBasicInfoProps) => {
         </S.ProfileChangeBtn>
         <S.ProfileImage src="https://via.placeholder.com/70" />
       </S.ProfileImageBox>
-      <S.UserName>{user?.nickname}</S.UserName>
+      <S.UserName>{profile?.nickname}</S.UserName>
       <S.UserInfo>
-        Lv. {user?.level} | {user?.address ? user?.address : "주소없음"}
+        Lv.{profile?.level} | {profile?.address}
       </S.UserInfo>
     </S.Container>
   );

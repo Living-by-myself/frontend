@@ -9,10 +9,14 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignupFormData } from "@/types/form.types";
+import { useState } from "react";
+import Timer from "@/components/timer";
+import postSendAuthCodeToPhone from "@/api/user/postSendAuthCodeToPhone";
+import postVerifyAuthCode from "@/api/user/postVerifyAuthCode";
 
 const validatePhoneNumber = (phoneNumber: string) => {
   const phoneNumberRegex = new RegExp(/^010\d{8}$/);
-  return phoneNumberRegex.test(phoneNumber.toString());
+  return phoneNumberRegex.test(phoneNumber);
 };
 
 const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+]).{8,}$/;
@@ -57,13 +61,61 @@ const SignUpForm = () => {
     handleSubmit,
     formState: { errors },
     getValues,
+    watch,
   } = useForm<SignupFormData>({
     resolver: zodResolver(schema),
   });
+  const [isSendAuthNumber, setIsSendAuthNumber] = useState(false);
+  const [isPhoneNumberVerified, setIsPhoneNumberVerified] = useState(false);
+  const [resetTimer, setResetTimer] = useState(false);
 
-  const requestAuthNumber = () => {
-    console.log(getValues("phoneNumber"));
+  // 타이머 초기화 함수
+  const handleTimerReset = () => {
+    setResetTimer(true);
+    setTimeout(() => {
+      setResetTimer(false);
+    }, 0);
   };
+
+  const requestAuthNumber = async () => {
+    console.log(getValues("phoneNumber"));
+    try {
+      await postSendAuthCodeToPhone(
+        { phoneNumber: getValues("phoneNumber") },
+        "signup",
+      );
+      alert("인증번호가 전송되었습니다.");
+      setIsSendAuthNumber(true);
+      handleTimerReset();
+    } catch (e) {
+      console.log(e);
+      alert("인증번호 전송에 실패했습니다.");
+    }
+  };
+
+  const handleVerifyAuthNumber = async () => {
+    console.log(getValues("phoneAuthNumber"));
+
+    try {
+      await postVerifyAuthCode(
+        {
+          phoneNumber: getValues("phoneNumber"),
+          code: Number(getValues("phoneAuthNumber")),
+        },
+        "signup",
+      );
+      alert("인증되었습니다.");
+      setIsPhoneNumberVerified(true);
+    } catch (e) {
+      console.log(e);
+      alert("인증번호가 일치하지 않습니다.");
+    }
+  };
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+    alert("회원가입 완료!");
+  });
 
   return (
     <S.Container>
@@ -73,7 +125,7 @@ const SignUpForm = () => {
           로그인
         </Link>
       </S.LinkContainer>
-      <form onSubmit={handleSubmit((d) => console.log(d))}>
+      <form onSubmit={onSubmit}>
         <S.FormInner>
           <S.FormRow>
             <Label htmlFor="username">이메일</Label>
@@ -87,8 +139,12 @@ const SignUpForm = () => {
           </S.FormRow>
           <S.FormRow>
             <Label htmlFor="password">비밀번호</Label>
+            <Typography variants="caption1">
+              영문, 숫자, 특수문자(!@#$%^&*()_+)를 포함한 8자 이상의 비밀번호를
+              입력해주세요.
+            </Typography>
             <InputText
-              placeholder="이메일"
+              placeholder="비밀번호"
               id="password"
               type="password"
               {...register("password")}
@@ -98,7 +154,7 @@ const SignUpForm = () => {
           <S.FormRow>
             <Label htmlFor="passwordCheck">비밀번호 확인</Label>
             <InputText
-              placeholder="이메일"
+              placeholder="비밀번호 확인"
               id="passwordCheck"
               type="password"
               {...register("passwordCheck")}
@@ -107,25 +163,57 @@ const SignUpForm = () => {
           </S.FormRow>
           <S.FormRow>
             <Label htmlFor="phoneNumber">전화번호</Label>
+            <Typography variants="caption1">
+              인증번호를 받을 휴대폰 번호를 입력해주세요.
+            </Typography>
             <S.FormColumn>
               <InputText
                 placeholder="전화번호"
                 id="phoneNumber"
                 {...register("phoneNumber")}
+                disabled={isPhoneNumberVerified}
               />
-              <Button type="button" onClick={requestAuthNumber}>
+              <Button
+                type="button"
+                onClick={requestAuthNumber}
+                disabled={
+                  isPhoneNumberVerified ||
+                  !validatePhoneNumber(watch("phoneNumber"))
+                }
+              >
                 인증번호 받기
               </Button>
             </S.FormColumn>
-            <InputText
-              placeholder="인증번호 6자리 숫자 입력"
-              id="phoneAuthNumber"
-              {...register("phoneAuthNumber")}
-            />
+            <S.FormColumn>
+              <InputText
+                placeholder="인증번호 6자리 숫자 입력"
+                id="phoneAuthNumber"
+                {...register("phoneAuthNumber")}
+                disabled={isPhoneNumberVerified}
+              />
+              <Timer
+                initialTime={180}
+                key={String(resetTimer)}
+                isStopped={isPhoneNumberVerified || !isSendAuthNumber}
+              />
+            </S.FormColumn>
             <ErrorMessage>
               {errors.phoneNumber?.message || errors.phoneAuthNumber?.message}
             </ErrorMessage>
-            <Button>회원가입</Button>
+            <Button
+              type="button"
+              variants="outline"
+              onClick={handleVerifyAuthNumber}
+              disabled={
+                isPhoneNumberVerified ||
+                (watch("phoneAuthNumber")
+                  ? watch("phoneAuthNumber").length < 6
+                  : true)
+              }
+            >
+              인증번호 확인
+            </Button>
+            <Button disabled={!isPhoneNumberVerified}>회원가입</Button>
           </S.FormRow>
         </S.FormInner>
       </form>

@@ -10,12 +10,16 @@ import { NAV_LINKS } from "@/constants/common.constants";
 import Logo from "@/components/common/logo";
 import SearchBar from "@/components/search/searchBar";
 import { useState } from "react";
+import useUserStore from "@/store/useUserStore";
+import Avatar from "@/components/common/avatar";
 
 const Header = () => {
   const [isOpenSearch, setIsOpenSearch] = useState(false);
   const overlay = useOverlay();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { profile, token, isLogged } = useUserStore();
+  console.log(profile, token, isLogged);
 
   const openNavModal = () => {
     overlay.open(({ close }) => <NavModal onClose={close} />);
@@ -53,9 +57,20 @@ const Header = () => {
 
         <S.RightMenu>
           <SearchBar />
-          <Button onClick={() => navigate("/login")} variants="contain">
-            로그인
-          </Button>
+          {isLogged ? (
+            <>
+              <Button variants="icon" onClick={() => navigate("/mypage")}>
+                <Icon name="bell" color="#212121" />
+              </Button>
+              <Link to="/mypage">
+                <Avatar src={profile?.profileImage} />
+              </Link>
+            </>
+          ) : (
+            <Button onClick={() => navigate("/login")} variants="contain">
+              로그인
+            </Button>
+          )}
         </S.RightMenu>
 
         <S.MobileRightMenu>
