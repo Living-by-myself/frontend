@@ -1,3 +1,6 @@
+import { Location } from "@/components/kakaoMap/locationSelectModal";
+import { GroupBuyCategoriesValues } from "./groupBuy.types";
+
 export interface LoginFormData {
   username: string;
   password: string;
@@ -20,6 +23,7 @@ export interface GroupBuyFormData {
   location: Location | null;
   images: FileList;
   enumShare: "BUY" | "SHARE";
+  enumCategory: Omit<GroupBuyCategoriesValues, "ALL">;
 }
 
 export interface CommunityWriteFormData {

@@ -10,17 +10,18 @@ import {
 } from "@/types/groupBuy.types";
 
 export interface getGroupBuyListByFilterRequest {
-  page: number;
-  size: number;
-  category: GroupBuyCategoriesValues;
-  category_share: GroupBuyCategoryShareValues;
-  category_status: GroupBuyStatusValues;
-  sort: GroupBuySortValues;
-  address: string;
+  page?: number;
+  size?: number;
+  category?: GroupBuyCategoriesValues;
+  category_share?: GroupBuyCategoryShareValues;
+  category_status?: GroupBuyStatusValues;
+  sort?: GroupBuySortValues;
+  address?: string;
 }
 
 export interface getGroupBuyListByFilterResponse {
-  data: GroupBuyPreviewType[];
+  groupBuyingResponseDtoList: GroupBuyPreviewType[];
+  len: number;
 }
 
 const getGroupBuyListByFilter = (
@@ -28,6 +29,8 @@ const getGroupBuyListByFilter = (
 ): AxiosPromise<getGroupBuyListByFilterResponse> =>
   axiosInstance.get("/group-buying/login", {
     params: {
+      page: 1,
+      size: 10,
       ...args,
     },
   });

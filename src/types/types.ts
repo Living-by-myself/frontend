@@ -39,3 +39,12 @@ export type TypographyVariants =
   (typeof TYPOGRAPHY_VARIANTS)[keyof typeof TYPOGRAPHY_VARIANTS];
 
 export type TypographyBold = boolean;
+
+export interface UserProfile {
+  nickname: string;
+  profileImage: string | null;
+  level: number;
+  address: string | null;
+  cash: number;
+  // beobJeongDong: string | null;
+}

@@ -1,7 +1,9 @@
 import Icon from "@/components/common/icon";
+import useUserStore from "@/store/useUserStore";
 import styled from "styled-components";
 
 const MyPageUserBasicInfo = () => {
+  const { profile } = useUserStore();
   return (
     <S.Container>
       <S.ProfileImageBox>
@@ -10,8 +12,10 @@ const MyPageUserBasicInfo = () => {
         </S.ProfileChangeBtn>
         <S.ProfileImage src="https://via.placeholder.com/70" />
       </S.ProfileImageBox>
-      <S.UserName>김토스</S.UserName>
-      <S.UserInfo>Lv. 100 | 신월 2동</S.UserInfo>
+      <S.UserName>{profile?.nickname}</S.UserName>
+      <S.UserInfo>
+        Lv.{profile?.level} | {profile?.address}
+      </S.UserInfo>
     </S.Container>
   );
 };

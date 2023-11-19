@@ -1,11 +1,15 @@
+import useUserStore from "@/store/useUserStore";
+import { getWonString } from "@/utils/string";
 import styled from "styled-components";
 
 const MyPagePayment = () => {
+  const { profile } = useUserStore();
+
   return (
     <S.Container>
       <S.Inner>
         <S.Label>보유 포인트</S.Label>
-        <S.Point>1,000,000원</S.Point>
+        <S.Point>{profile?.cash ? getWonString(profile.cash) : 0}원</S.Point>
       </S.Inner>
       <S.PointCharging>충전하기</S.PointCharging>
     </S.Container>

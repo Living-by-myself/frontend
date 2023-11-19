@@ -1,12 +1,12 @@
 import { AxiosPromise } from "axios";
 import axiosInstance from "../config";
 
-export interface PatchResetPasswordResponse {
+export interface DeleteLogoutResponse {
   msg: string;
   statusCode: number;
 }
 
-const patchResetPassword = (): AxiosPromise<PatchResetPasswordResponse> =>
+const deleteLogout = (): AxiosPromise<DeleteLogoutResponse> =>
   axiosInstance.delete("/users/logout");
 
-export default patchResetPassword;
+export default deleteLogout;

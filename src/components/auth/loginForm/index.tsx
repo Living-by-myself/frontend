@@ -7,8 +7,8 @@ import Link from "../../common/link";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import postLogin from "@/api/user/postLogin";
 import { LoginFormData } from "@/types/form.types";
+import useLoginMutation from "@/queries/userLoginMutation";
 
 const schema = z.object({
   username: z.string().min(2, { message: "2자 이상의 아이디를 입력해주세요." }),
@@ -25,18 +25,11 @@ const LoginForm = () => {
   } = useForm<LoginFormData>({
     resolver: zodResolver(schema),
   });
+  const loginMutation = useLoginMutation();
 
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
-    try {
-      const res = await postLogin({
-        username: data.username,
-        password: data.password,
-      });
-      console.log("응답:", res);
-    } catch (e) {
-      console.log("에러:", e);
-    }
+    loginMutation.mutate(data);
   });
 
   return (
@@ -56,7 +49,7 @@ const LoginForm = () => {
           <S.FormRow>
             <Label htmlFor="password">비밀번호</Label>
             <InputText
-              placeholder="이메일"
+              placeholder="비밀번호"
               id="password"
               type="password"
               {...register("password")}

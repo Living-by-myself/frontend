@@ -25,10 +25,12 @@ export const FormRow = styled.div`
 export const FormColumn = styled.div`
   display: flex;
   gap: 1rem;
+  align-items: center;
 `;
 
 export const LinkContainer = styled.div`
   display: flex;
   gap: 1rem;
   justify-content: center;
+  align-items: center;
 `;

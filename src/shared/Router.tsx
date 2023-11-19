@@ -23,20 +23,23 @@ import PointChargePage from "@/pages/pointCharge";
 import MyPageBadge from "@/pages/mypageBadge";
 import MyPagePost from "@/pages/myPagePost";
 import MyPageGroupBuy from "@/pages/mypageGroupBuy";
-import ChattingPage from "@/pages/\bchatting";
+import ChattingPage from "@/pages/chatting";
 import ChattingDetailPage from "@/pages/chattingDetail";
 import ChattingDetailEdit from "@/pages/chattingDetailEdit";
 import SearchPage from "@/pages/search";
+import OnlyNotLoggedRoute from "./OnlyNotLoggedRoute";
 
 const Router = () => {
   return (
     <Routes>
       <Route path="/" element={<RootLayout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<RegisterPage />} />
-        <Route path="/password-find" element={<PasswordFindPage />} />
-        <Route path="/password-reset" element={<PasswordResetPage />} />
+        <Route element={<OnlyNotLoggedRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<RegisterPage />} />
+          <Route path="/password-find" element={<PasswordFindPage />} />
+          <Route path="/password-reset" element={<PasswordResetPage />} />
+        </Route>
 
         <Route path="/group-buy" element={<GroupBuyPage />} />
         <Route path="/group-buy/:id" element={<GroupBuyDetailPage />} />

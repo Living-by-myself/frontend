@@ -5,6 +5,9 @@ import { NAV_LINKS } from "@/constants/common.constants";
 import { useNavigate } from "react-router-dom";
 import Logo from "@/components/common/logo";
 import Button from "@/components/common/button";
+import ProfilePreview from "@/components/ui/profilePreview";
+import useUserStore from "@/store/useUserStore";
+import useLogoutMutation from "@/queries/useLogoutMutation";
 
 interface NavModalProps {
   onClose: () => void;
@@ -12,12 +15,19 @@ interface NavModalProps {
 
 const NavModal = ({ onClose }: NavModalProps) => {
   const navigate = useNavigate();
+  const { isLogged } = useUserStore();
+  const logoutMutation = useLogoutMutation();
+
+  const handleLogout = async () => {
+    logoutMutation.mutate();
+  };
 
   return (
     <BaseModal onClose={onClose} side="left">
       <S.Container>
         <S.Nav>
           <Logo />
+          {isLogged && <ProfilePreview />}
           <S.LinkList>
             {NAV_LINKS.map((link) => (
               <S.LinkItem
@@ -31,12 +41,27 @@ const NavModal = ({ onClose }: NavModalProps) => {
           </S.LinkList>
         </S.Nav>
         <S.Bottom>
-          <Button full onClick={() => navigate("/login")}>
-            로그인
-          </Button>
-          <Button full variants="outline" onClick={() => navigate("/signup")}>
-            회원가입
-          </Button>
+          {isLogged ? (
+            <>
+              <Button full variants="outline" onClick={handleLogout}>
+                로그아웃
+              </Button>
+            </>
+          ) : (
+            <>
+              {" "}
+              <Button full onClick={() => navigate("/login")}>
+                로그인
+              </Button>
+              <Button
+                full
+                variants="outline"
+                onClick={() => navigate("/signup")}
+              >
+                회원가입
+              </Button>
+            </>
+          )}
         </S.Bottom>
       </S.Container>
     </BaseModal>

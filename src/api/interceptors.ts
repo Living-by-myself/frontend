@@ -1,11 +1,12 @@
+import useUserStore from "@/store/useUserStore";
 import { getAccessTokenFromLocalStorage } from "@/utils/localStorage";
 import { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 export const checkAndSetAccessToken = (config: InternalAxiosRequestConfig) => {
   const newConfig = { ...config };
-  const accessToken = getAccessTokenFromLocalStorage();
+  const accessToken = useUserStore.getState().token;
   if (accessToken) {
-    newConfig.headers.Authorization = `Bearer ${accessToken}`;
+    newConfig.headers.Authorization = accessToken;
   }
 
   return newConfig;

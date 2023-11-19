@@ -6,6 +6,7 @@ export const Typography = styled.p<{
   $bold: TypographyBold;
   variants: TypographyVariants;
 }>`
+  line-height: 1.5;
   font-weight: ${({ $bold, theme }) =>
     $bold ? theme.fontWeights.bold : theme.fontWeights.normal};
 

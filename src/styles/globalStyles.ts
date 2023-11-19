@@ -29,6 +29,12 @@ const GlobalStyles = createGlobalStyle`
     a {
         text-decoration: none;
     }
+
+    span, p, a, button, input, label, div, h1, h2, h3, h4, h5, h6 {
+        line-height: 1.3;
+    }
+
+    
 `;
 
 export default GlobalStyles;

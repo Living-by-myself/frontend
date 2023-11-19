@@ -6,7 +6,7 @@ export const Badge = styled.div<{ variant: BadgeVariants }>`
   display: inline-flex;
   align-items: center;
   border-radius: 0.4rem;
-  padding: 0.5rem 0.8rem;
+  padding: 0.4rem 0.8rem;
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ theme }) => theme.colors.gray[0]};

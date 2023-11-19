@@ -11,15 +11,15 @@ export interface PostVerifyAuthCodeResponse {
   statusCode: number;
 }
 
-export type PostVerifyAuthCodeKind = "findPassword" | "signup";
+export type PostVerifyAuthCodeKind = "find" | "signup";
 
 const postVerifyAuthCode = (
   args: PostVerifyAuthCodeRequest,
   kind: PostVerifyAuthCodeKind,
 ): AxiosPromise<PostVerifyAuthCodeResponse> => {
-  return kind === "findPassword"
-    ? axiosInstance.post("/auth/message/find-password", args)
-    : axiosInstance.post("/auth/message/signup", args);
+  return kind === "find"
+    ? axiosInstance.post("/auth/message-code", args)
+    : axiosInstance.post("/auth/message-code/signup", args);
 };
 
 export default postVerifyAuthCode;

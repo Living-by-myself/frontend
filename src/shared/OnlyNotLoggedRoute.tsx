@@ -1,13 +1,13 @@
 import useUserStore from "@/store/useUserStore";
 import { Navigate, Outlet } from "react-router-dom";
 
-const PrivateRoute = () => {
+const OnlyNotLoggedRoute = () => {
   const { isLogged } = useUserStore();
 
-  if (!isLogged) {
-    return <Navigate to="/login" replace />;
+  if (isLogged) {
+    return <Navigate to="/" replace />;
   }
   return <Outlet></Outlet>;
 };
 
-export default PrivateRoute;
+export default OnlyNotLoggedRoute;

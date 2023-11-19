@@ -66,6 +66,9 @@ export const Button = styled.button<{
           &:hover {
             background-color: ${getHoverColor(color)};
           }
+          &:disabled {
+            background-color: ${theme.colors.gray[400]};
+          }
         `;
       case BUTTON_VARIANTS.OUTLINE:
         return css`
@@ -74,6 +77,10 @@ export const Button = styled.button<{
           border: 1px solid ${getColor(color)};
           &:hover {
             background-color: ${theme.colors.gray[200]};
+          }
+          &:disabled {
+            border-color: ${theme.colors.gray[400]};
+            color: ${theme.colors.gray[400]};
           }
         `;
       case BUTTON_VARIANTS.TEXT:
