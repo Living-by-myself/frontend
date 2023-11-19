@@ -1,7 +1,25 @@
-import axios from "axios";
+import { getAccessTokenFromLocalStorage } from "@/utils/localStorage";
+import axios, {
+  AxiosInstance,
+  CreateAxiosDefaults,
+  InternalAxiosRequestConfig,
+} from "axios";
+import { checkAndSetAccessToken } from "./interceptors";
 
-const instance = axios.create({
-  baseURL: "",
+const BASE_URL = `${
+  import.meta.env.DEV ? "/api" : import.meta.env.VITE_API_URL
+}/home`;
+
+const COMMON_HEADERS: CreateAxiosDefaults = {
+  baseURL: "https://tracelover.shop",
+  timeout: 5000,
+};
+
+const axiosInstance: AxiosInstance = axios.create({
+  ...COMMON_HEADERS,
 });
 
-export default instance;
+axiosInstance.interceptors.request.use(checkAndSetAccessToken);
+
+// axiosInstance.interceptors.response.use((res) => res, handleTokenError);
+export default axiosInstance;
