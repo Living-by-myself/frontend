@@ -1,11 +1,16 @@
 import styled from "styled-components";
+import { MyPageUserBasicInfoProps } from "../userInfo";
 
-const MyPagePayment = () => {
+interface MyPagePaymentProps {
+  cash: number | undefined;
+}
+
+const MyPagePayment = ({ cash }: MyPagePaymentProps) => {
   return (
     <S.Container>
       <S.Inner>
         <S.Label>보유 포인트</S.Label>
-        <S.Point>1,000,000원</S.Point>
+        <S.Point>{cash ? cash : "0"}원</S.Point>
       </S.Inner>
       <S.PointCharging>충전하기</S.PointCharging>
     </S.Container>

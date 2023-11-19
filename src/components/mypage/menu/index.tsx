@@ -1,15 +1,30 @@
 import styled from "styled-components";
 import MyPageMenuCard from "./menuCard";
+import { useNavigate } from "react-router-dom";
+
+const menuList = [
+  { url: "/mypage/badge", name: "활동 배지" },
+  { url: "/mypage/group-buy", name: "나의 공동구매" },
+  { url: "/mypage/post", name: "내가 쓴 글" },
+  { url: "/mypage/update", name: "회원정보 수정" },
+  { url: "/mypage/password-update", name: "비밀번호 수정" },
+  { url: "/mypage/logout", name: "로그아웃" },
+];
 
 const MyPageMenuList = () => {
+  const navigate = useNavigate();
   return (
     <S.Container>
-      <MyPageMenuCard children="활동 배지" />
-      <MyPageMenuCard children="나의 공동구매" />
-      <MyPageMenuCard children="내가 쓴 글" />
-      <MyPageMenuCard children="회원정보 수정" />
-      <MyPageMenuCard children="비밀번호 수정" />
-      <MyPageMenuCard children="로그아웃" />
+      {menuList.map((menu) => {
+        return (
+          <MyPageMenuCard
+            onClick={() => {
+              navigate(menu.url);
+            }}
+            children={menu.name}
+          />
+        );
+      })}
     </S.Container>
   );
 };

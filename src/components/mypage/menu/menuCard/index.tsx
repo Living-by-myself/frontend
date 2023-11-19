@@ -3,11 +3,12 @@ import styled from "styled-components";
 
 interface MyPageMenuCardProps {
   children?: string;
+  onClick: () => void;
 }
 
-const MyPageMenuCard = ({ children }: MyPageMenuCardProps) => {
+const MyPageMenuCard = ({ children, onClick }: MyPageMenuCardProps) => {
   return (
-    <S.Container>
+    <S.Container onClick={onClick}>
       <S.Label>{children}</S.Label>
       <Icon name="chevron-right" size={16} />
     </S.Container>

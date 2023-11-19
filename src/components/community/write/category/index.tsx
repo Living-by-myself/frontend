@@ -16,33 +16,33 @@ const CommunityWriteCategory = ({
     <S.Container>
       <RoundButton
         onClick={() => {
-          setValue("category", "clean");
+          setValue("category", "CLEAN");
         }}
-        isCheck={watch("category") === "clean" && true}
+        isCheck={watch("category") === "CLEAN" && true}
       >
         청소
       </RoundButton>
       <RoundButton
         onClick={() => {
-          setValue("category", "interior");
+          setValue("category", "INTERIOR");
         }}
-        isCheck={watch("category") === "interior" && true}
+        isCheck={watch("category") === "INTERIOR" && true}
       >
         인테리어
       </RoundButton>
       <RoundButton
         onClick={() => {
-          setValue("category", "cook");
+          setValue("category", "COOK");
         }}
-        isCheck={watch("category") === "cook" && true}
+        isCheck={watch("category") === "COOK" && true}
       >
         요리
       </RoundButton>
       <RoundButton
         onClick={() => {
-          setValue("category", "free");
+          setValue("category", "FREE");
         }}
-        isCheck={watch("category") === "free" && true}
+        isCheck={watch("category") === "FREE" && true}
       >
         자유
       </RoundButton>

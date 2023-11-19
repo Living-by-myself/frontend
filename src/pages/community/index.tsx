@@ -16,6 +16,8 @@ import {
 } from "@/constants/community.constants";
 import useOverlay from "@/hooks/useOverlay";
 import FilterModal from "@/components/community/filterModal";
+import { useQuery } from "@tanstack/react-query";
+import { getPosts } from "@/api/community-ys/getPostList";
 
 export interface Post {
   id: number;
@@ -46,8 +48,6 @@ const getFilterName = (filter: CommunityFiltersValues) => {
 };
 
 const CommunityPage = () => {
-  const [posts, setPost] = useState<Post[]>([]);
-
   const overlay = useOverlay();
   const [category, setCategory] = useState<CommunityCategoriesValues>("all");
   const [filter, setFilter] = useState<CommunityFiltersValues>("latest");
@@ -105,33 +105,20 @@ const CommunityPage = () => {
     setFilter(confirm);
   };
 
-  // 데이터 서버에서 받아오는 로직 리액트 쿼리화 필요
-  const getPosts = async () => {
-    axios({
-      method: "get",
-      url: "https://tracelover.shop/home/communities",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        setPost(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    getPosts();
-  }, []);
+  const { error, data, isLoading } = useQuery({
+    queryKey: ["posts", category, filter],
+    queryFn: getPosts,
+  });
 
   // 글이 잘들어오는지 테스트해봐야함
-  if (posts.length === 0) {
+  if (isLoading) {
     return (
       <MobileContainer>아무런 글도 작성되어있지가 않음...!</MobileContainer>
     );
+  }
+
+  if (error) {
+    return <MobileContainer>에러 발생</MobileContainer>;
   }
 
   return (
@@ -149,7 +136,7 @@ const CommunityPage = () => {
         />
       </S.FilterArea>
 
-      {posts.map((post: Post) => {
+      {data!.map((post: Post) => {
         return (
           <CommunityPost
             key={post.id}
